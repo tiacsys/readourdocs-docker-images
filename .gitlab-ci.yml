@@ -1,0 +1,82 @@
+# https://docs.gitlab.com/ee/ci/yaml
+# https://docs.gitlab.com/ee/ci/docker
+# https://docs.gitlab.com/ce/ci/variables
+
+image: docker:stable
+services:
+  - docker:dind
+
+variables:
+  GIT_STRATEGY: clone
+  GIT_CHECKOUT: "true"
+# DOCKER_HOST: tcp://docker:2375
+# DOCKER_DRIVER: overlay2
+  CONTAINER_BUILD_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:unstable
+
+stages:
+  - build
+  - test
+  - release
+
+before_script:
+  - env | sort
+  - df -hT
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  # docker system prune --all --force
+
+build-image:
+  stage: build
+  script:
+    - docker image rm --force $CONTAINER_BUILD_IMAGE
+    - docker image prune --force
+    - df -hT
+
+    - docker build --pull --tag $CONTAINER_BUILD_IMAGE .
+    - docker push $CONTAINER_BUILD_IMAGE
+
+    - docker image rm --force $CONTAINER_BUILD_IMAGE
+    - docker image prune --force
+    - df -hT
+
+test-runtime:
+  stage: test
+  script:
+    - docker pull $CONTAINER_BUILD_IMAGE
+
+    - docker run --rm $CONTAINER_BUILD_IMAGE make --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE gcc --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE g++ --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE asdf list
+
+    - docker image rm --force $CONTAINER_BUILD_IMAGE
+    - docker image prune --force
+    - df -hT
+
+test-tools:
+  stage: test
+  script:
+    - docker pull $CONTAINER_BUILD_IMAGE
+
+    - docker run --rm $CONTAINER_BUILD_IMAGE latexmk --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE xindy --version
+
+    - docker image rm --force $CONTAINER_BUILD_IMAGE
+    - docker image prune --force
+    - df -hT
+
+release-image:
+  stage: release
+  only:
+    - main
+  script:
+    - docker pull $CONTAINER_BUILD_IMAGE
+
+    - docker tag $CONTAINER_BUILD_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+
+    - docker image rm --force $CONTAINER_BUILD_IMAGE
+    - docker image rm --force $CONTAINER_RELEASE_IMAGE
+    - docker image prune --force
+    - df -hT
