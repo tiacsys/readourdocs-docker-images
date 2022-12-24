@@ -36,6 +36,39 @@ RUN update-locale LANG=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 RUN locale -a
 
+# Tools for international spelling check
+RUN apt-get -y install \
+      aspell \
+      enchant-2 \
+      hunspell
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# Dictionaries for spelling check -- split to reduce image layer size
+RUN apt-get -y install \
+      aspell-en \
+      hunspell-en-us \
+      hunspell-en-med
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# Dictionaries for spelling check -- split to reduce image layer size
+RUN apt-get -y install \
+      aspell-de \
+      hunspell-de-de \
+      hunspell-de-med \
+      myspell-de-de-1901
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# Dictionaries for spelling check -- split to reduce image layer size
+RUN apt-get -y install \
+      wamerican-huge \
+      wgerman-medical \
+      wngerman
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
