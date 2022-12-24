@@ -61,6 +61,10 @@ test-tools:
 
     - docker run --rm $CONTAINER_BUILD_IMAGE latexmk --version
     - docker run --rm $CONTAINER_BUILD_IMAGE xindy --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE aspell --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE enchant-2 -v
+    - docker run --rm $CONTAINER_BUILD_IMAGE hunspell --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE hunspell -D </dev/null
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
