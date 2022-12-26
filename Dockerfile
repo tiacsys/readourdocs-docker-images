@@ -146,6 +146,13 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# running Chromium within DeckTape extra requirements
+RUN apt-get install -y \
+    libasound2 \
+    libgbm1
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
