@@ -55,6 +55,7 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE swig -version
     - docker run --rm $CONTAINER_BUILD_IMAGE /usr/bin/python3 --version
     - docker run --rm $CONTAINER_BUILD_IMAGE /usr/bin/pip3 --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE asdf info
     - docker run --rm $CONTAINER_BUILD_IMAGE asdf list
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
