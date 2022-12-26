@@ -69,6 +69,37 @@ RUN apt-get -y install \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# graphviz: is to support sphinx.ext.graphviz
+# https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html
+#
+# imagemagick: is to support sphinx.ext.imgconverter
+# http://www.sphinx-doc.org/en/master/usage/extensions/imgconverter.html
+#
+# rsvg-convert: is for SVG -> PDF conversion
+# using Sphinx extension sphinxcontrib.rsvgconverter, see
+# https://github.com/missinglinkelectronics/sphinxcontrib-svg2pdfconverter
+#
+# plantuml: is to support sphinxcontrib-plantuml
+# https://pypi.org/project/sphinxcontrib-plantuml
+#
+# pdf2svg (poppler-utils): is required for different workflows,
+# needed to convert PDF -> SVG conversion, alternative to pdftocairo, see
+# http://cityinthesky.co.uk/opensource/pdf2svg
+# https://poppler.freedesktop.org/
+#
+# swig: is required for different purposes
+# https://github.com/readthedocs/readthedocs-docker-images/issues/15
+RUN apt-get -y install \
+      graphviz \
+      imagemagick \
+      librsvg2-bin \
+      pdf2svg \
+      plantuml \
+      poppler-utils \
+      swig
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
