@@ -75,6 +75,11 @@ test-tools:
     - docker run --rm $CONTAINER_BUILD_IMAGE pdftocairo -v
     - docker run --rm $CONTAINER_BUILD_IMAGE dot -V
     - docker run --rm $CONTAINER_BUILD_IMAGE plantuml -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE latexmk -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE latex -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE xelatex -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE pdflatex -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE xindy --version
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
