@@ -236,4 +236,45 @@ LABEL golang.version_118=$ROD_GOLANG_VERSION_118
 RUN asdf local golang $ROD_GOLANG_VERSION_118
 RUN asdf list  golang
 
+#
+# Node.js runtime versions
+#
+
+# Define Node.js versions to be installed via asdf
+### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_12=12.22.12
+### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_14=14.21.2
+### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_16=16.19.0
+ENV ROD_NODEJS_VERSION_18=18.12.1
+### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_19=19.3.0
+
+### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_12 && \
+### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_12 && \
+### __NOT_YET__ ###     asdf reshim  nodejs
+
+### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_14 && \
+### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_14 && \
+### __NOT_YET__ ###     asdf reshim  nodejs
+
+### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_16 && \
+### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_16 && \
+### __NOT_YET__ ###     asdf reshim  nodejs
+
+RUN asdf install nodejs $ROD_NODEJS_VERSION_18 && \
+    asdf global  nodejs $ROD_NODEJS_VERSION_18 && \
+    asdf reshim  nodejs
+
+### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_19 && \
+### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_19 && \
+### __NOT_YET__ ###     asdf reshim  nodejs
+
+# Adding labels for external usage
+### __NOT_YET__ ### LABEL nodejs.version_12=$ROD_NODEJS_VERSION_12
+### __NOT_YET__ ### LABEL nodejs.version_14=$ROD_NODEJS_VERSION_14
+### __NOT_YET__ ### LABEL nodejs.version_16=$ROD_NODEJS_VERSION_16
+LABEL nodejs.version_18=$ROD_NODEJS_VERSION_18
+### __NOT_YET__ ### LABEL nodejs.version_19=$ROD_NODEJS_VERSION_19
+
+RUN asdf local nodejs $ROD_NODEJS_VERSION_18
+RUN asdf list  nodejs
+
 CMD ["/bin/bash"]
