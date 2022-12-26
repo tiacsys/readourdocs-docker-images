@@ -63,6 +63,10 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE node --version
     - docker run --rm $CONTAINER_BUILD_IMAGE npm --version
     - docker run --rm $CONTAINER_BUILD_IMAGE npx --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE python --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE python3 --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE pip --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE pip3 --version
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
@@ -89,6 +93,8 @@ test-tools:
     - docker run --rm $CONTAINER_BUILD_IMAGE xelatex -version
     - docker run --rm $CONTAINER_BUILD_IMAGE pdflatex -version
     - docker run --rm $CONTAINER_BUILD_IMAGE xindy --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE pip list
+    - docker run --rm $CONTAINER_BUILD_IMAGE pip3 list
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
