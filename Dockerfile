@@ -277,4 +277,272 @@ LABEL nodejs.version_18=$ROD_NODEJS_VERSION_18
 RUN asdf local nodejs $ROD_NODEJS_VERSION_18
 RUN asdf list  nodejs
 
+#
+# Python runtime versions
+#
+
+# Define Python versions to be installed via asdf
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_27=2.7.18
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_36=3.6.15
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_37=3.7.16
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_38=3.8.16
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_39=3.9.16
+ENV ROD_PYTHON_VERSION_310=3.10.9
+### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_311=3.11.1
+### __NOT_YET__ ### ENV ROD_PYPY_VERSION_37=pypy3.7-7.3.9
+### __NOT_YET__ ### ENV ROD_PYPY_VERSION_38=pypy3.8-7.3.10
+### __NOT_YET__ ### ENV ROD_PYPY_VERSION_39=pypy3.9-7.3.10
+### __NOT_YET__ ### ENV ROD_MINICONDA_VERSION=miniconda3-4.7.12
+### __NOT_YET__ ### ENV ROD_MINIFORGE_VERSION=miniforge3-22.9.0-2
+### __NOT_YET__ ### ENV ROD_MINIFORGE_VERSION_PYPY=miniforge-pypy3
+### __NOT_YET__ ### ENV ROD_MAMBAFORGE_VERSION=mambaforge-22.9.0-2
+### __NOT_YET__ ### ENV ROD_MAMBAFORGE_VERSION_PYPY=mambaforge-pypy3
+### __NOT_YET__ ### ENV ROD_ANACONDA_VERSION=anaconda3-2022.10
+
+ENV PYTHON_CONFIGURE_OPTS=--enable-shared
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYTHON_VERSION_27 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_27 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+# Special command for Python 3.6.15
+# See https://github.com/pyenv/pyenv/issues/1889#issuecomment-833587851
+### __NOT_YET__ ### RUN CC=clang \
+### __NOT_YET__ ###     asdf install python $ROD_PYTHON_VERSION_36 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_36 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYTHON_VERSION_37 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_37 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYTHON_VERSION_38 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_38 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYTHON_VERSION_39 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_39 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+RUN asdf install python $ROD_PYTHON_VERSION_310 && \
+    asdf global  python $ROD_PYTHON_VERSION_310 && \
+    asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYTHON_VERSION_311 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYTHON_VERSION_311 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYPY_VERSION_37 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYPY_VERSION_37 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYPY_VERSION_38 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYPY_VERSION_38 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_PYPY_VERSION_39 && \
+### __NOT_YET__ ###     asdf global  python $ROD_PYPY_VERSION_39 && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_MINICONDA_VERSION && \
+### __NOT_YET__ ###     asdf global  python $ROD_MINICONDA_VERSION && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_MINIFORGE_VERSION && \
+### __NOT_YET__ ###     asdf global  python $ROD_MINIFORGE_VERSION && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_MINIFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     asdf global  python $ROD_MINIFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_MAMBAFORGE_VERSION && \
+### __NOT_YET__ ###     asdf global  python $ROD_MAMBAFORGE_VERSION && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_MAMBAFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     asdf global  python $ROD_MAMBAFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     asdf reshim  python
+
+### __NOT_YET__ ### RUN asdf install python $ROD_ANACONDA_VERSION && \
+### __NOT_YET__ ###     asdf global  python $ROD_ANACONDA_VERSION && \
+### __NOT_YET__ ###     asdf reshim  python
+
+ENV ROD_PIP_VERSION=22.3.1
+ENV ROD_SETUPTOOLS_VERSION=65.6.3
+ENV ROD_VIRTUALENV_VERSION=20.17.1
+ENV ROD_WHEEL_VERSION=0.38.4
+ENV ROD_POETRY_VERSION=1.3.1
+ENV ROD_WEST_VERSION=0.14.0
+
+# Python2 dependencies are hardcoded because Python2 is
+# deprecated. Updating them to their latest versions may raise
+# incompatibility issues.
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_27 && \
+### __NOT_YET__ ###     pip install --upgrade pip==20.3.4 && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==44.1.1 && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==20.15.1 && \
+### __NOT_YET__ ###     pip install --upgrade wheel==0.37.1 && \
+### __NOT_YET__ ###     pip install --upgrade poetry==1.1.15 && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+# Python3.6 dependencies are hardcoded because Python3.6 becomes
+# deprecated. Updating them to their latest versions may raise
+# incompatibility issues.
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_36 && \
+### __NOT_YET__ ###     pip install --upgrade pip==21.3.1 && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==59.6.0 && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==0.37.1 && \
+### __NOT_YET__ ###     pip install --upgrade poetry==1.1.15 && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_37 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_38 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_39 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+RUN asdf local python $ROD_PYTHON_VERSION_310 && \
+    pip install --upgrade pip==$ROD_PIP_VERSION && \
+    pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+    pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+    pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+    pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+    pip install --upgrade west==$ROD_WEST_VERSION && \
+    pip install --only-binary numpy,scipy numpy scipy && \
+    pip install --only-binary pandas,matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYTHON_VERSION_311 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy,scipy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary pandas,matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYPY_VERSION_37 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy numpy scipy && \
+### __NOT_YET__ ###     pip install --only-binary matplotlib pandas matplotlib
+
+# Special dependencies are hardcoded for PyPy 3.8
+# See https://github.com/scipy/scipy/issues/16737#issuecomment-1353715167
+### __NOT_YET__ ### RUN asdf local python $ROD_PYPY_VERSION_38 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install --only-binary numpy numpy scipy==1.8.1 && \
+### __NOT_YET__ ###     pip install --only-binary matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_PYPY_VERSION_39 && \
+### __NOT_YET__ ###     pip install --upgrade pip==$ROD_PIP_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     pip install numpy scipy==1.8.1 && \
+### __NOT_YET__ ###     pip install --only-binary matplotlib pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_MINICONDA_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools && \
+### __NOT_YET__ ###     conda install --yes --quiet virtualenv poetry && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_MINIFORGE_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools && \
+### __NOT_YET__ ###     conda install --yes --quiet virtualenv poetry && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_MINIFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools && \
+### __NOT_YET__ ###     conda install --yes --quiet virtualenv poetry && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_MAMBAFORGE_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools && \
+### __NOT_YET__ ###     conda install --yes --quiet virtualenv poetry && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_MAMBAFORGE_VERSION_PYPY && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools && \
+### __NOT_YET__ ###     conda install --yes --quiet virtualenv poetry && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib
+
+### __NOT_YET__ ### RUN asdf local python $ROD_ANACONDA_VERSION && \
+### __NOT_YET__ ###     conda install --yes --quiet pip setuptools virtualenv && \
+### __NOT_YET__ ###     conda install --yes --quiet numpy scipy pandas matplotlib && \
+### __NOT_YET__ ###     pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+### __NOT_YET__ ###     pip install --upgrade west==$ROD_WEST_VERSION
+
+# Adding labels for external usage
+### __NOT_YET__ ### LABEL python.version_27=$ROD_PYTHON_VERSION_27
+### __NOT_YET__ ### LABEL python.version_36=$ROD_PYTHON_VERSION_36
+### __NOT_YET__ ### LABEL python.version_37=$ROD_PYTHON_VERSION_37
+### __NOT_YET__ ### LABEL python.version_38=$ROD_PYTHON_VERSION_38
+### __NOT_YET__ ### LABEL python.version_39=$ROD_PYTHON_VERSION_39
+LABEL python.version_310=$ROD_PYTHON_VERSION_310
+### __NOT_YET__ ### LABEL python.version_311=$ROD_PYTHON_VERSION_311
+LABEL python.pip=$ROD_PIP_VERSION
+LABEL python.setuptools=$ROD_SETUPTOOLS_VERSION
+LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
+LABEL python.wheel=ROD_WHEEL_VERSION
+LABEL python.poetry=ROD_POETRY_VERSION
+LABEL python.west=ROD_WEST_VERSION
+### __NOT_YET__ ### LABEL pypy.version_37=$ROD_PYPY_VERSION_37
+### __NOT_YET__ ### LABEL pypy.version_38=$ROD_PYPY_VERSION_38
+### __NOT_YET__ ### LABEL pypy.version_39=$ROD_PYPY_VERSION_39
+### __NOT_YET__ ### LABEL miniconda.version=$ROD_MINICONDA_VERSION
+### __NOT_YET__ ### LABEL miniforge.version=$ROD_MINIFORGE_VERSION
+### __NOT_YET__ ### LABEL miniforge.version_pypy=$ROD_MINIFORGE_VERSION_PYPY
+### __NOT_YET__ ### LABEL mambaforge.version=$ROD_MAMBAFORGE_VERSION
+### __NOT_YET__ ### LABEL mambaforge.version_pypy=$ROD_MAMBAFORGE_VERSION_PYPY
+### __NOT_YET__ ### LABEL anaconda.version=$ROD_ANACONDA_VERSION
+
+RUN asdf local python $ROD_PYTHON_VERSION_310
+RUN asdf list  python
+
 CMD ["/bin/bash"]
