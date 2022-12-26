@@ -60,6 +60,9 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE rustc --version
     - docker run --rm $CONTAINER_BUILD_IMAGE cargo --version
     - docker run --rm $CONTAINER_BUILD_IMAGE go version
+    - docker run --rm $CONTAINER_BUILD_IMAGE node --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE npm --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE npx --version
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
