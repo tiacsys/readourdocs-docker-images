@@ -107,6 +107,15 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# building Python scipy extra requirements
+# https://docs.scipy.org/doc/scipy/dev/contributor/building.html
+RUN apt-get install -y \
+    gfortran \
+    liblapack-dev \
+    libopenblas-dev
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
