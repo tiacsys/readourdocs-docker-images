@@ -100,6 +100,13 @@ RUN apt-get -y install \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# asdf Python 3.6.15 extra requirements
+# https://github.com/pyenv/pyenv/issues/1889#issuecomment-833587851
+RUN apt-get install -y \
+    clang
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
