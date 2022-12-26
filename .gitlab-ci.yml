@@ -59,6 +59,7 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE asdf list
     - docker run --rm $CONTAINER_BUILD_IMAGE rustc --version
     - docker run --rm $CONTAINER_BUILD_IMAGE cargo --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE go version
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
