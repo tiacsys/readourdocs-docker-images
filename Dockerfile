@@ -100,6 +100,27 @@ RUN apt-get -y install \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# LaTeX -- split to reduce image layer size
+RUN apt-get -y install \
+    texlive-fonts-extra \
+    texlive-fonts-recommended
+RUN apt-get -y install \
+    texlive-lang-english \
+    texlive-lang-european
+RUN apt-get -y install \
+    texlive-pictures \
+    texlive-science \
+    texlive-xetex
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# latexmk: is needed to generate LaTeX documents
+# https://github.com/readthedocs/readthedocs.org/issues/4454
+RUN apt-get -y install \
+    latexmk
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # asdf Python 3.6.15 extra requirements
 # https://github.com/pyenv/pyenv/issues/1889#issuecomment-833587851
 RUN apt-get install -y \
