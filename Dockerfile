@@ -166,4 +166,33 @@ WORKDIR /home/docs
 RUN asdf update
 RUN asdf version
 
+#
+# Rust runtime versions
+#
+
+# Define Rust versions to be installed via asdf
+### __NOT_YET__ ### ENV ROD_RUST_VERSION_2020=1.49.0
+### __NOT_YET__ ### ENV ROD_RUST_VERSION_2021=1.57.0
+ENV ROD_RUST_VERSION_2022=1.66.0
+
+### __NOT_YET__ ### RUN asdf install rust $ROD_RUST_VERSION_2020 && \
+### __NOT_YET__ ###     asdf global  rust $ROD_RUST_VERSION_2020 && \
+### __NOT_YET__ ###     asdf reshim  rust
+
+### __NOT_YET__ ### RUN asdf install rust $ROD_RUST_VERSION_2021 && \
+### __NOT_YET__ ###     asdf global  rust $ROD_RUST_VERSION_2021 && \
+### __NOT_YET__ ###     asdf reshim  rust
+
+RUN asdf install rust $ROD_RUST_VERSION_2022 && \
+    asdf global  rust $ROD_RUST_VERSION_2022 && \
+    asdf reshim  rust
+
+# Adding labels for external usage
+### __NOT_YET__ ### LABEL rust.version_2020=$ROD_RUST_VERSION_2020
+### __NOT_YET__ ### LABEL rust.version_2021=$ROD_RUST_VERSION_2021
+LABEL rust.version_2022=$ROD_RUST_VERSION_2022
+
+RUN asdf local rust $ROD_RUST_VERSION_2022
+RUN asdf list  rust
+
 CMD ["/bin/bash"]
