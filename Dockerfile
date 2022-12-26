@@ -153,8 +153,17 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
-# System final clean-up
-RUN apt-get -y autoremove --purge
-RUN apt-get clean
+#
+# Manage multiple runtime versions with the
+# asdf version manager in docs user space.
+#
+
+USER docs
+WORKDIR /home/docs
+
+# Upgrade asdf version manager
+# https://github.com/asdf-vm/asdf
+RUN asdf update
+RUN asdf version
 
 CMD ["/bin/bash"]
