@@ -48,6 +48,8 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE make --version
     - docker run --rm $CONTAINER_BUILD_IMAGE gcc --version
     - docker run --rm $CONTAINER_BUILD_IMAGE g++ --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE java -version
+    - docker run --rm $CONTAINER_BUILD_IMAGE swig -version
     - docker run --rm $CONTAINER_BUILD_IMAGE asdf list
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
@@ -65,6 +67,11 @@ test-tools:
     - docker run --rm $CONTAINER_BUILD_IMAGE enchant-2 -v
     - docker run --rm $CONTAINER_BUILD_IMAGE hunspell --version
     - docker run --rm $CONTAINER_BUILD_IMAGE hunspell -D </dev/null
+    - docker run --rm $CONTAINER_BUILD_IMAGE convert --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE rsvg-convert --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE pdftocairo -v
+    - docker run --rm $CONTAINER_BUILD_IMAGE dot -V
+    - docker run --rm $CONTAINER_BUILD_IMAGE plantuml -version
 
     - docker image rm --force $CONTAINER_BUILD_IMAGE
     - docker image prune --force
