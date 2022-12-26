@@ -48,6 +48,7 @@ test-runtime:
     - docker run --rm $CONTAINER_BUILD_IMAGE make --version
     - docker run --rm $CONTAINER_BUILD_IMAGE gcc --version
     - docker run --rm $CONTAINER_BUILD_IMAGE g++ --version
+    - docker run --rm $CONTAINER_BUILD_IMAGE gfortran --version
     - docker run --rm $CONTAINER_BUILD_IMAGE clang --version
     - docker run --rm $CONTAINER_BUILD_IMAGE clang++ --version
     - docker run --rm $CONTAINER_BUILD_IMAGE java -version
