@@ -137,6 +137,15 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# ensure Python3 from the system installed
+RUN apt-get install -y \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # System final clean-up
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
