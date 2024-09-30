@@ -185,12 +185,13 @@ RUN asdf version
 
 #
 # Rust runtime versions
+# https://releases.rs/
 #
 
 # Define Rust versions to be installed via asdf
 ### __NOT_YET__ ### ENV ROD_RUST_VERSION_2020=1.49.0
 ### __NOT_YET__ ### ENV ROD_RUST_VERSION_2021=1.57.0
-ENV ROD_RUST_VERSION_2022=1.66.0
+ENV ROD_RUST_VERSION_2022=1.67.1
 
 ### __NOT_YET__ ### RUN asdf install rust $ROD_RUST_VERSION_2020 && \
 ### __NOT_YET__ ###     asdf global  rust $ROD_RUST_VERSION_2020 && \
