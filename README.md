@@ -45,17 +45,12 @@ README.md).
     - **1.76.0**: `asdf global rust 1.76.0`
     - **1.67.1**: `asdf global rust 1.67.1`
   - **Golang**:
-    - **1.18.9**: `asdf local golang 1.18.9` (default)
+    - **1.19.13**: `asdf local golang 1.19.13` (default)
   - **Nodejs**:
     - **18.12.1**: `asdf local nodejs 18.12.1` (default)
   - **Python**:
     - **3.10.9**: `asdf local python 3.10.9` (default)
 - not yet add with asdf:
-  - **Golang**:
-    - 1.15.15: `asdf local golang 1.15.15`
-    - 1.16.15: `asdf local golang 1.16.15`
-    - 1.17.13: `asdf local golang 1.17.13`
-    - 1.19.4: `asdf local golang 1.19.4`
   - **Nodejs**:
     - 14.21.2: `asdf local nodejs 14.21.2`
     - 16.19.0: `asdf local nodejs 16.19.0`

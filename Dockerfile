@@ -219,43 +219,20 @@ RUN asdf list  rust
 
 #
 # Golang runtime versions
+# https://go.dev/doc/devel/release
 #
 
 # Define Golang versions to be installed via asdf
-### __NOT_YET__ ### ENV ROD_GOLANG_VERSION_115=1.15.15
-### __NOT_YET__ ### ENV ROD_GOLANG_VERSION_116=1.16.15
-### __NOT_YET__ ### ENV ROD_GOLANG_VERSION_117=1.17.13
-ENV ROD_GOLANG_VERSION_118=1.18.9
-### __NOT_YET__ ### ENV ROD_GOLANG_VERSION_119=1.19.4
+ENV ROD_GOLANG_VERSION_2022=1.19.13
 
-### __NOT_YET__ ### RUN asdf install golang $ROD_GOLANG_VERSION_115 && \
-### __NOT_YET__ ###     asdf global  golang $ROD_GOLANG_VERSION_115 && \
-### __NOT_YET__ ###     asdf reshim  golang
-
-### __NOT_YET__ ### RUN asdf install golang $ROD_GOLANG_VERSION_116 && \
-### __NOT_YET__ ###     asdf global  golang $ROD_GOLANG_VERSION_116 && \
-### __NOT_YET__ ###     asdf reshim  golang
-
-### __NOT_YET__ ### RUN asdf install golang $ROD_GOLANG_VERSION_117 && \
-### __NOT_YET__ ###     asdf global  golang $ROD_GOLANG_VERSION_117 && \
-### __NOT_YET__ ###     asdf reshim  golang
-
-RUN asdf install golang $ROD_GOLANG_VERSION_118 && \
-    asdf global  golang $ROD_GOLANG_VERSION_118 && \
+RUN asdf install golang $ROD_GOLANG_VERSION_2022 && \
+    asdf global  golang $ROD_GOLANG_VERSION_2022 && \
     asdf reshim  golang
 
-### __NOT_YET__ ### RUN asdf install golang $ROD_GOLANG_VERSION_119 && \
-### __NOT_YET__ ###     asdf global  golang $ROD_GOLANG_VERSION_119 && \
-### __NOT_YET__ ###     asdf reshim  golang
-
 # Adding labels for external usage
-### __NOT_YET__ ### LABEL golang.version_115=$ROD_GOLANG_VERSION_115
-### __NOT_YET__ ### LABEL golang.version_116=$ROD_GOLANG_VERSION_116
-### __NOT_YET__ ### LABEL golang.version_117=$ROD_GOLANG_VERSION_117
-LABEL golang.version_118=$ROD_GOLANG_VERSION_118
-### __NOT_YET__ ### LABEL golang.version_119=$ROD_GOLANG_VERSION_119
+LABEL golang.version_2022=$ROD_GOLANG_VERSION_2022
 
-RUN asdf local golang $ROD_GOLANG_VERSION_118
+RUN asdf local golang $ROD_GOLANG_VERSION_2022
 RUN asdf list  golang
 
 # ############################################################################
