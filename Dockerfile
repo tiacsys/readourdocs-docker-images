@@ -253,13 +253,14 @@ RUN asdf list  golang
 
 #
 # Node.js runtime versions
+# https://nodejs.org/en/about/previous-releases
 #
 
 # Define Node.js versions to be installed via asdf
 ### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_12=12.22.12
 ### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_14=14.21.2
 ### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_16=16.19.0
-ENV ROD_NODEJS_VERSION_18=18.12.1
+ENV ROD_NODEJS_VERSION_18=18.20.4
 ### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_19=19.3.0
 
 ### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_12 && \

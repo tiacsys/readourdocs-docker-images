@@ -49,7 +49,7 @@ README.md).
     - **1.21.13**: `asdf global golang 1.21.13`
     - **1.19.13**: `asdf global golang 1.19.13`
   - **Nodejs**:
-    - **18.12.1**: `asdf local nodejs 18.12.1` (default)
+    - **18.20.4**: `asdf local nodejs 18.20.4` (default)
   - **Python**:
     - **3.10.9**: `asdf local python 3.10.9` (default)
 - not yet add with asdf:
