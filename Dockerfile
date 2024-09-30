@@ -8,11 +8,15 @@ FROM readthedocs/build:ubuntu-22.04-2022.03.15
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
 LABEL version="unstable"
 
+# ############################################################################
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 
 USER root
 WORKDIR /
+
+# ############################################################################
 
 # System dependencies
 RUN apt-get -y update
@@ -35,6 +39,8 @@ RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 RUN locale -a
+
+# ############################################################################
 
 # Tools for international spelling check
 RUN apt-get -y install \
@@ -69,6 +75,8 @@ RUN apt-get -y install \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# ############################################################################
+
 # graphviz: is to support sphinx.ext.graphviz
 # https://www.sphinx-doc.org/en/master/usage/extensions/graphviz.html
 #
@@ -100,6 +108,8 @@ RUN apt-get -y install \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# ############################################################################
+
 # LaTeX -- split to reduce image layer size
 RUN apt-get -y install \
     texlive-fonts-extra \
@@ -120,6 +130,8 @@ RUN apt-get -y install \
     latexmk
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
+
+# ############################################################################
 
 # asdf Python 3.6.15 extra requirements
 # https://github.com/pyenv/pyenv/issues/1889#issuecomment-833587851
@@ -153,6 +165,8 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# ############################################################################
+
 #
 # Manage multiple runtime versions with the
 # asdf version manager in docs user space.
@@ -165,6 +179,8 @@ WORKDIR /home/docs
 # https://github.com/asdf-vm/asdf
 RUN asdf update
 RUN asdf version
+
+# ############################################################################
 
 #
 # Rust runtime versions
@@ -194,6 +210,8 @@ LABEL rust.version_2022=$ROD_RUST_VERSION_2022
 
 RUN asdf local rust $ROD_RUST_VERSION_2022
 RUN asdf list  rust
+
+# ############################################################################
 
 #
 # Golang runtime versions
@@ -236,6 +254,8 @@ LABEL golang.version_118=$ROD_GOLANG_VERSION_118
 RUN asdf local golang $ROD_GOLANG_VERSION_118
 RUN asdf list  golang
 
+# ############################################################################
+
 #
 # Node.js runtime versions
 #
@@ -276,6 +296,8 @@ LABEL nodejs.version_18=$ROD_NODEJS_VERSION_18
 
 RUN asdf local nodejs $ROD_NODEJS_VERSION_18
 RUN asdf list  nodejs
+
+# ############################################################################
 
 #
 # Python runtime versions
@@ -545,4 +567,7 @@ LABEL python.west=ROD_WEST_VERSION
 RUN asdf local python $ROD_PYTHON_VERSION_310
 RUN asdf list  python
 
+# ############################################################################
+
+# Set executable for main entry point
 CMD ["/bin/bash"]
