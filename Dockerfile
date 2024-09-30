@@ -287,6 +287,8 @@ RUN asdf list  nodejs
 
 #
 # Python runtime versions
+# https://www.python.org/downloads
+# https://devguide.python.org/versions
 #
 
 # Define Python versions to be installed via asdf
@@ -295,7 +297,7 @@ RUN asdf list  nodejs
 ### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_37=3.7.16
 ### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_38=3.8.16
 ### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_39=3.9.16
-ENV ROD_PYTHON_VERSION_310=3.10.9
+ENV ROD_PYTHON_VERSION_310=3.10.15
 ### __NOT_YET__ ### ENV ROD_PYTHON_VERSION_311=3.11.1
 ### __NOT_YET__ ### ENV ROD_PYPY_VERSION_37=pypy3.7-7.3.9
 ### __NOT_YET__ ### ENV ROD_PYPY_VERSION_38=pypy3.8-7.3.10

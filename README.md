@@ -53,7 +53,7 @@ README.md).
     - **20.17.0**: `asdf global nodejs 20.17.0`
     - **18.20.4**: `asdf global nodejs 18.20.4`
   - **Python**:
-    - **3.10.9**: `asdf local python 3.10.9` (default)
+    - **3.10.15**: `asdf local python 3.10.15` (default)
 - not yet add with asdf:
   - **Python**:
     - 2.7.18: `asdf local python 2.7.18` (obsolete)
