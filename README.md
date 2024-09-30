@@ -20,17 +20,17 @@ README.md).
 
 - based on [Docker image definitions used by Read the
   Docs](https://github.com/readthedocs/readthedocs-docker-images),
-  **ubuntu-22.04-2022.03.15**
+  **ubuntu-22.04-2024.01.29**
   - Ubuntu 22.04
   - TeX Live 2021
 - extend with:
   - Ubuntu 22.04 package upgrade
   - locales for English unicode (`en_US.UTF-8`)
   - locales for German unicode (`de_DE.UTF-8`)
-  - **Python 3.10.6** (`python3`, `pip3`)
+  - **Python 3.10.12** (`python3`, `pip3`)
   - **LLVM C/C++** compiler **14.0** (`clang`, `clang++`)
-  - **GNU C/C++** compiler **11.2.0** (`gcc`, `g++`)
-  - **GNU Fortran 95** compiler **11.2.0** (`gfortran`)
+  - **GNU C/C++** compiler **11.4.0** (`gcc`, `g++`)
+  - **GNU Fortran 95** compiler **11.4.0** (`gfortran`)
   - **OpenJDK 11** (`java`, `javac`)
   - **SWIG 4.0.2** (`swig`)
   - **TeX Live 2022** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)

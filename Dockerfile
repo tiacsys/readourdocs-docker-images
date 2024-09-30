@@ -4,7 +4,7 @@
 #  -- see: https://hub.docker.com/r/readthedocs/build
 #  -- see: https://github.com/readthedocs/readthedocs-docker-images
 #
-FROM readthedocs/build:ubuntu-22.04-2022.03.15
+FROM readthedocs/build:ubuntu-22.04-2024.01.29
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
 LABEL version="unstable"
 
