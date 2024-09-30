@@ -1,20 +1,20 @@
-# Read Our Docs (RUD) Docker Image
+# Read-Our-Docs (ROD) Docker Image
 
 ## Description
 
-This project creates the full-stack Docker image [for processing
-training materials](https://code.iot.mp-labs.de/trainings).
+This project creates the full-stack Docker image for processing [tutorial](
+https://bridle.tiac-systems.net/tutorials) and [training](
+https://bridle.tiac-systems.net/trainings) materials.
 
 ## Canonical source
 
-The source of trainings/readourdocs-docker-images is [hosted on
-https://code.iot.mp-labs.de](
-https://code.iot.mp-labs.de/trainings/readourdocs-docker-images).
+The source of the ROD Docker Image is [hosted on https://github.com/tiacsys](
+https://github.com/tiacsys/readourdocs-docker-images).
 
 ## Documentation
 
-The documentation overview is in this [readme in the project
-root directory](doc/README.md).
+The documentation overview is in this [readme in the project root directory](
+README.md).
 
 ## Content
 
