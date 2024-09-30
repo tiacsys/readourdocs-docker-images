@@ -13,11 +13,15 @@ on:
     # every day at 16:15 UTC
     - cron: '15 16 * * *'
   push:
-    branches: [ "main" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    branches:
+      - 'main'
+    # Publish calver or semver tags as releases.
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - 'main'
 
 env:
   # Use docker.io for Docker Hub if empty
