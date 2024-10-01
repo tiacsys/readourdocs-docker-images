@@ -378,12 +378,12 @@ RUN asdf install python $ROD_PYTHON_VERSION_310 && \
 ### __NOT_YET__ ###     asdf global  python $ROD_ANACONDA_VERSION && \
 ### __NOT_YET__ ###     asdf reshim  python
 
-ENV ROD_PIP_VERSION=22.3.1
-ENV ROD_SETUPTOOLS_VERSION=65.6.3
-ENV ROD_VIRTUALENV_VERSION=20.17.1
-ENV ROD_WHEEL_VERSION=0.38.4
-ENV ROD_POETRY_VERSION=1.3.1
-ENV ROD_WEST_VERSION=0.14.0
+ENV ROD_PIP_VERSION=24.2
+ENV ROD_SETUPTOOLS_VERSION=75.1.0
+ENV ROD_VIRTUALENV_VERSION=20.26.6
+ENV ROD_WHEEL_VERSION=0.44.0
+ENV ROD_POETRY_VERSION=1.6.1
+ENV ROD_WEST_VERSION=1.2.0
 
 # Python2 dependencies are hardcoded because Python2 is
 # deprecated. Updating them to their latest versions may raise
@@ -539,9 +539,9 @@ LABEL python.version_310=$ROD_PYTHON_VERSION_310
 LABEL python.pip=$ROD_PIP_VERSION
 LABEL python.setuptools=$ROD_SETUPTOOLS_VERSION
 LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
-LABEL python.wheel=ROD_WHEEL_VERSION
-LABEL python.poetry=ROD_POETRY_VERSION
-LABEL python.west=ROD_WEST_VERSION
+LABEL python.wheel=$ROD_WHEEL_VERSION
+LABEL python.poetry=$ROD_POETRY_VERSION
+LABEL python.west=$ROD_WEST_VERSION
 ### __NOT_YET__ ### LABEL pypy.version_37=$ROD_PYPY_VERSION_37
 ### __NOT_YET__ ### LABEL pypy.version_38=$ROD_PYPY_VERSION_38
 ### __NOT_YET__ ### LABEL pypy.version_39=$ROD_PYPY_VERSION_39

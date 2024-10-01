@@ -54,6 +54,14 @@ README.md).
     - **18.20.4**: `asdf global nodejs 18.20.4`
   - **Python**:
     - **3.10.15**: `asdf local python 3.10.15` (default)
+- Python packages:
+  - `pip==24.2`
+  - `setuptools==75.1.0`
+  - `virtualenv==20.26.6`
+  - `wheel==0.44.0`
+  - `poetry==1.6.1`
+  - `west==1.2.0`
+  - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
 - not yet add with asdf:
   - **Python**:
     - 2.7.18: `asdf local python 2.7.18` (obsolete)
@@ -71,6 +79,3 @@ README.md).
     - miniforge-pypy3: `asdf local python miniforge-pypy3` (22.11.1)
     - mambaforge-22.9.0-2: `asdf local python mambaforge-22.9.0-2` (22.11.1)
     - mambaforge-pypy3: `asdf local python mambaforge-pypy3` (22.11.1)
-  - Python packages:
-    - pip, setuptools, virtualenv, wheel, poetry, west
-    - numpy, scipy, pandas, matplotlib
