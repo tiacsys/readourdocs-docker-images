@@ -191,6 +191,7 @@ RUN asdf version
 # Define Rust versions to be installed via asdf
 ENV ROD_RUST_VERSION_2022=1.67.1
 ENV ROD_RUST_VERSION_2023=1.76.0
+ENV ROD_RUST_VERSION_2024=1.81.0
 
 # Install Rust versions
 RUN asdf install rust $ROD_RUST_VERSION_2022 && \
@@ -201,12 +202,17 @@ RUN asdf install rust $ROD_RUST_VERSION_2023 && \
     asdf global  rust $ROD_RUST_VERSION_2023 && \
     asdf reshim  rust
 
+RUN asdf install rust $ROD_RUST_VERSION_2024 && \
+    asdf global  rust $ROD_RUST_VERSION_2024 && \
+    asdf reshim  rust
+
 # Adding labels for external usage
 LABEL rust.version_2022=$ROD_RUST_VERSION_2022
 LABEL rust.version_2023=$ROD_RUST_VERSION_2023
+LABEL rust.version_2024=$ROD_RUST_VERSION_2024
 
 # Set default Rust version
-RUN asdf local rust $ROD_RUST_VERSION_2023
+RUN asdf local rust $ROD_RUST_VERSION_2024
 RUN asdf list  rust
 
 # ############################################################################

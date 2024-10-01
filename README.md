@@ -41,7 +41,8 @@ README.md).
   - **poppler-utils 22.02.0** (`pdf2svg`, `pdftocairo`)
 - extend with asdf:
   - **Rust**:
-    - **1.76.0**: `asdf local rust 1.76.0` (default)
+    - **1.81.0**: `asdf local rust 1.81.0` (default)
+    - **1.76.0**: `asdf global rust 1.76.0`
     - **1.67.1**: `asdf global rust 1.67.1`
   - **Golang**:
     - **1.18.9**: `asdf local golang 1.18.9` (default)
