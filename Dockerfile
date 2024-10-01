@@ -225,6 +225,7 @@ RUN asdf list  rust
 # Define Golang versions to be installed via asdf
 ENV ROD_GOLANG_VERSION_2022=1.19.13
 ENV ROD_GOLANG_VERSION_2023=1.21.13
+ENV ROD_GOLANG_VERSION_2024=1.23.1
 
 # Install Golang versions
 RUN asdf install golang $ROD_GOLANG_VERSION_2022 && \
@@ -235,12 +236,17 @@ RUN asdf install golang $ROD_GOLANG_VERSION_2023 && \
     asdf global  golang $ROD_GOLANG_VERSION_2023 && \
     asdf reshim  golang
 
+RUN asdf install golang $ROD_GOLANG_VERSION_2024 && \
+    asdf global  golang $ROD_GOLANG_VERSION_2024 && \
+    asdf reshim  golang
+
 # Adding labels for external usage
 LABEL golang.version_2022=$ROD_GOLANG_VERSION_2022
 LABEL golang.version_2023=$ROD_GOLANG_VERSION_2023
+LABEL golang.version_2024=$ROD_GOLANG_VERSION_2024
 
 # Set default Golang version
-RUN asdf local golang $ROD_GOLANG_VERSION_2023
+RUN asdf local golang $ROD_GOLANG_VERSION_2024
 RUN asdf list  golang
 
 # ############################################################################
