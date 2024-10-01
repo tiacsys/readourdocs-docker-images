@@ -257,40 +257,24 @@ RUN asdf list  golang
 #
 
 # Define Node.js versions to be installed via asdf
-### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_12=12.22.12
-### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_14=14.21.2
-### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_16=16.19.0
 ENV ROD_NODEJS_VERSION_18=18.20.4
-### __NOT_YET__ ### ENV ROD_NODEJS_VERSION_19=19.3.0
+ENV ROD_NODEJS_VERSION_20=20.17.0
 
-### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_12 && \
-### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_12 && \
-### __NOT_YET__ ###     asdf reshim  nodejs
-
-### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_14 && \
-### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_14 && \
-### __NOT_YET__ ###     asdf reshim  nodejs
-
-### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_16 && \
-### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_16 && \
-### __NOT_YET__ ###     asdf reshim  nodejs
-
+# Install Node.js versions
 RUN asdf install nodejs $ROD_NODEJS_VERSION_18 && \
     asdf global  nodejs $ROD_NODEJS_VERSION_18 && \
     asdf reshim  nodejs
 
-### __NOT_YET__ ### RUN asdf install nodejs $ROD_NODEJS_VERSION_19 && \
-### __NOT_YET__ ###     asdf global  nodejs $ROD_NODEJS_VERSION_19 && \
-### __NOT_YET__ ###     asdf reshim  nodejs
+RUN asdf install nodejs $ROD_NODEJS_VERSION_20 && \
+    asdf global  nodejs $ROD_NODEJS_VERSION_20 && \
+    asdf reshim  nodejs
 
 # Adding labels for external usage
-### __NOT_YET__ ### LABEL nodejs.version_12=$ROD_NODEJS_VERSION_12
-### __NOT_YET__ ### LABEL nodejs.version_14=$ROD_NODEJS_VERSION_14
-### __NOT_YET__ ### LABEL nodejs.version_16=$ROD_NODEJS_VERSION_16
 LABEL nodejs.version_18=$ROD_NODEJS_VERSION_18
-### __NOT_YET__ ### LABEL nodejs.version_19=$ROD_NODEJS_VERSION_19
+LABEL nodejs.version_20=$ROD_NODEJS_VERSION_20
 
-RUN asdf local nodejs $ROD_NODEJS_VERSION_18
+# Set default Node.js version
+RUN asdf local nodejs $ROD_NODEJS_VERSION_20
 RUN asdf list  nodejs
 
 # ############################################################################
