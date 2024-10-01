@@ -259,6 +259,7 @@ RUN asdf list  golang
 # Define Node.js versions to be installed via asdf
 ENV ROD_NODEJS_VERSION_18=18.20.4
 ENV ROD_NODEJS_VERSION_20=20.17.0
+ENV ROD_NODEJS_VERSION_22=22.9.0
 
 # Install Node.js versions
 RUN asdf install nodejs $ROD_NODEJS_VERSION_18 && \
@@ -269,12 +270,17 @@ RUN asdf install nodejs $ROD_NODEJS_VERSION_20 && \
     asdf global  nodejs $ROD_NODEJS_VERSION_20 && \
     asdf reshim  nodejs
 
+RUN asdf install nodejs $ROD_NODEJS_VERSION_22 && \
+    asdf global  nodejs $ROD_NODEJS_VERSION_22 && \
+    asdf reshim  nodejs
+
 # Adding labels for external usage
 LABEL nodejs.version_18=$ROD_NODEJS_VERSION_18
 LABEL nodejs.version_20=$ROD_NODEJS_VERSION_20
+LABEL nodejs.version_22=$ROD_NODEJS_VERSION_22
 
 # Set default Node.js version
-RUN asdf local nodejs $ROD_NODEJS_VERSION_20
+RUN asdf local nodejs $ROD_NODEJS_VERSION_22
 RUN asdf list  nodejs
 
 # ############################################################################
