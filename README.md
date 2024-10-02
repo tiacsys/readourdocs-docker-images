@@ -53,8 +53,9 @@ README.md).
     - **20.17.0**: `asdf global nodejs 20.17.0`
     - **18.20.4**: `asdf global nodejs 18.20.4`
   - **Python**:
+    - **3.12.6**: `asdf local python 3.12.6` (default)
     - 3.11.10: security until October 2027, (deprecated)
-    - **3.10.15**: `asdf local python 3.10.15` (default)
+    - **3.10.15**: `asdf global python 3.10.15`
     - 3.9.20: security until October 2025, (deprecated)
     - 3.8.20: security until October 2024, (deprecated)
     - 3.7.17: end-of-life since June 2023
