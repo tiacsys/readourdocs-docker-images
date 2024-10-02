@@ -53,7 +53,8 @@ README.md).
     - **20.17.0**: `asdf global nodejs 20.17.0`
     - **18.20.4**: `asdf global nodejs 18.20.4`
   - **Ruby**:
-    - **3.2.5**: `asdf local ruby 3.2.5` (default)
+    - **3.3.5**: `asdf local ruby 3.3.5` (default)
+    - **3.2.5**: `asdf global ruby 3.2.5`
     - **3.1.6**: `asdf global ruby 3.1.6`
   - **Python**:
     - **3.12.6**: `asdf local python 3.12.6` (default)

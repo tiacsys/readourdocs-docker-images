@@ -294,6 +294,7 @@ RUN asdf list  nodejs
 # Define Ruby versions to be installed via asdf
 ENV ROD_RUBY_VERSION_31=3.1.6
 ENV ROD_RUBY_VERSION_32=3.2.5
+ENV ROD_RUBY_VERSION_33=3.3.5
 
 # Install Ruby versions
 RUN asdf install ruby $ROD_RUBY_VERSION_31 && \
@@ -304,12 +305,17 @@ RUN asdf install ruby $ROD_RUBY_VERSION_32 && \
     asdf global  ruby $ROD_RUBY_VERSION_32 && \
     asdf reshim  ruby
 
+RUN asdf install ruby $ROD_RUBY_VERSION_33 && \
+    asdf global  ruby $ROD_RUBY_VERSION_33 && \
+    asdf reshim  ruby
+
 # Adding labels for external usage
 LABEL ruby.version_31=$ROD_RUBY_VERSION_31
 LABEL ruby.version_32=$ROD_RUBY_VERSION_32
+LABEL ruby.version_33=$ROD_RUBY_VERSION_33
 
 # Set default Ruby version
-RUN asdf local ruby $ROD_RUBY_VERSION_32
+RUN asdf local ruby $ROD_RUBY_VERSION_33
 RUN asdf list  ruby
 
 # ############################################################################
