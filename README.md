@@ -56,6 +56,7 @@ README.md).
     - **3.12.6**: `asdf local python 3.12.6` (default)
     - 3.11.10: security until October 2027, (deprecated)
     - **3.10.15**: `asdf global python 3.10.15`
+    - **pypy3.10-7.3.17**: `asdf global python pypy3.10-7.3.17`
     - 3.9.20: security until October 2025, (deprecated)
     - 3.8.20: security until October 2024, (deprecated)
     - 3.7.17: end-of-life since June 2023
@@ -67,6 +68,7 @@ README.md).
     - 3.1.5: end-of-life since April 2012
     - 3.0.1: end-of-life since June 2009
     - **2.7.18**: `asdf global python 2.7.18` (obsolete)
+    - **pypy2.7-7.3.17**: `asdf global python pypy2.7-7.3.17`
 - Python packages:
   - `pip==24.2`
   - `setuptools==75.1.0`

@@ -290,11 +290,19 @@ RUN asdf list  nodejs
 # https://www.python.org/downloads
 # https://devguide.python.org/versions
 #
+# PyPy runtime versions
+# https://downloads.python.org/pypy
+# https://pypy.org/download_advanced.html
+# https://pypy.org/categories/release.html
+# https://doc.pypy.org/en/latest/index-of-release-notes.html
+#
 
 # Define Python versions to be installed via asdf
 ENV ROD_PYTHON_VERSION_27=2.7.18
 ENV ROD_PYTHON_VERSION_310=3.10.15
 ENV ROD_PYTHON_VERSION_312=3.12.6
+ENV ROD_PYPY_VERSION_2=pypy2.7-7.3.17
+ENV ROD_PYPY_VERSION_3=pypy3.10-7.3.17
 
 ENV PYTHON_CONFIGURE_OPTS=--enable-shared
 
@@ -311,6 +319,14 @@ RUN asdf install python $ROD_PYTHON_VERSION_312 && \
     asdf global  python $ROD_PYTHON_VERSION_312 && \
     asdf reshim  python
 
+RUN asdf install python $ROD_PYPY_VERSION_2 && \
+    asdf global  python $ROD_PYPY_VERSION_2 && \
+    asdf reshim  python
+
+RUN asdf install python $ROD_PYPY_VERSION_3 && \
+    asdf global  python $ROD_PYPY_VERSION_3 && \
+    asdf reshim  python
+
 # Python2 dependencies are hardcoded because Python2 is
 # deprecated. Updating them to their latest versions may raise
 # incompatibility issues.
@@ -320,8 +336,15 @@ RUN asdf local python $ROD_PYTHON_VERSION_27 && \
     pip install --upgrade virtualenv==20.15.1 && \
     pip install --upgrade wheel==0.37.1 && \
     pip install --upgrade poetry==1.1.15 && \
-    pip install --only-binary numpy,scipy numpy scipy && \
-    pip install --only-binary pandas,matplotlib pandas matplotlib
+    pip install --only-binary numpy,scipy numpy==1.16.6 scipy==1.2.3 && \
+    pip install --only-binary pandas,matplotlib pandas==0.24.2 matplotlib==2.2.5
+
+RUN asdf local python $ROD_PYPY_VERSION_2 && \
+    pip install --upgrade pip==20.3.4 && \
+    pip install --upgrade setuptools==44.1.1 && \
+    pip install --upgrade virtualenv==20.15.1 && \
+    pip install --upgrade wheel==0.37.1 && \
+    pip install --upgrade poetry==1.1.15
 
 # Define Python package versions to be installed via pip
 ENV ROD_PIP_VERSION=24.2
@@ -352,10 +375,20 @@ RUN asdf local python $ROD_PYTHON_VERSION_312 && \
     pip install --only-binary numpy,scipy numpy scipy && \
     pip install --only-binary pandas,matplotlib pandas matplotlib
 
+RUN asdf local python $ROD_PYPY_VERSION_3 && \
+    pip install --upgrade pip==$ROD_PIP_VERSION && \
+    pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+    pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+    pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+    pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+    pip install --upgrade west==$ROD_WEST_VERSION
+
 # Adding labels for external usage
 LABEL python.version_27=$ROD_PYTHON_VERSION_27
 LABEL python.version_310=$ROD_PYTHON_VERSION_310
 LABEL python.version_312=$ROD_PYTHON_VERSION_312
+LABEL pypy.version_2=$ROD_PYPY_VERSION_2
+LABEL pypy.version_3=$ROD_PYPY_VERSION_3
 LABEL python.pip=$ROD_PIP_VERSION
 LABEL python.setuptools=$ROD_SETUPTOOLS_VERSION
 LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
