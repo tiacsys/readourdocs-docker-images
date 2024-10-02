@@ -178,6 +178,7 @@ WORKDIR /home/docs
 # Upgrade asdf version manager
 # https://github.com/asdf-vm/asdf
 RUN asdf update
+RUN asdf plugin update --all
 RUN asdf version
 
 # ############################################################################
