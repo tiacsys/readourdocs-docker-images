@@ -57,7 +57,7 @@ README.md).
     - **3.2.5**: `asdf global ruby 3.2.5`
     - **3.1.6**: `asdf global ruby 3.1.6`
   - **Python**:
-    - **3.12.6**: `asdf local python 3.12.6` (default)
+    - **3.12.7**: `asdf local python 3.12.7` (default)
     - 3.11.10: security until October 2027, (deprecated)
     - **3.10.15**: `asdf global python 3.10.15`
     - **pypy3.10-7.3.17**: `asdf global python pypy3.10-7.3.17`
