@@ -286,6 +286,29 @@ RUN asdf list  nodejs
 # ############################################################################
 
 #
+# Ruby runtime versions
+# https://www.ruby-lang.org/en/downloads/branches
+# https://www.ruby-lang.org/en/downloads/releases
+#
+
+# Define Ruby versions to be installed via asdf
+ENV ROD_RUBY_VERSION_31=3.1.6
+
+# Install Ruby versions
+RUN asdf install ruby $ROD_RUBY_VERSION_31 && \
+    asdf global  ruby $ROD_RUBY_VERSION_31 && \
+    asdf reshim  ruby
+
+# Adding labels for external usage
+LABEL ruby.version_31=$ROD_RUBY_VERSION_31
+
+# Set default Ruby version
+RUN asdf local ruby $ROD_RUBY_VERSION_31
+RUN asdf list  ruby
+
+# ############################################################################
+
+#
 # Python runtime versions
 # https://www.python.org/downloads
 # https://devguide.python.org/versions

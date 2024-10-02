@@ -52,6 +52,8 @@ README.md).
     - **22.9.0**: `asdf local nodejs 22.9.0` (default)
     - **20.17.0**: `asdf global nodejs 20.17.0`
     - **18.20.4**: `asdf global nodejs 18.20.4`
+  - **Ruby**:
+    - **3.1.6**: `asdf local ruby 3.1.6` (default)
   - **Python**:
     - **3.12.6**: `asdf local python 3.12.6` (default)
     - 3.11.10: security until October 2027, (deprecated)
