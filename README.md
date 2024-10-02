@@ -53,7 +53,19 @@ README.md).
     - **20.17.0**: `asdf global nodejs 20.17.0`
     - **18.20.4**: `asdf global nodejs 18.20.4`
   - **Python**:
+    - 3.11.10: security until October 2027, (deprecated)
     - **3.10.15**: `asdf local python 3.10.15` (default)
+    - 3.9.20: security until October 2025, (deprecated)
+    - 3.8.20: security until October 2024, (deprecated)
+    - 3.7.17: end-of-life since June 2023
+    - 3.6.15: end-of-life since December 2021
+    - 3.5.10: end-of-life since September 2020
+    - 3.4.10: end-of-life since March 2019
+    - 3.3.7: end-of-life since September 2017
+    - 3.2.6: end-of-life since February 2016
+    - 3.1.5: end-of-life since April 2012
+    - 3.0.1: end-of-life since June 2009
+    - **2.7.18**: `asdf global python 2.7.18` (obsolete)
 - Python packages:
   - `pip==24.2`
   - `setuptools==75.1.0`
@@ -62,20 +74,3 @@ README.md).
   - `poetry==1.6.1`
   - `west==1.2.0`
   - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
-- not yet add with asdf:
-  - **Python**:
-    - 2.7.18: `asdf local python 2.7.18` (obsolete)
-    - 3.6.15: `asdf local python 3.6.15` (deprecated)
-    - 3.7.16: `asdf local python 3.7.16`
-    - 3.8.16: `asdf local python 3.8.16`
-    - 3.9.16: `asdf local python 3.9.16`
-    - 3.11.1: `asdf local python 3.11.1`
-    - pypy3.7-7.3.9: `asdf local python pypy3.7-7.3.9`
-    - pypy3.8-7.3.10: `asdf local python pypy3.8-7.3.10`
-    - pypy3.9-7.3.10: `asdf local python pypy3.9-7.3.10`
-    - anaconda3-2022.10: `asdf local python anaconda3-2022.10` (22.11.1)
-    - miniconda3-4.7.12: `asdf local python miniconda3-4.7.12` (22.11.1)
-    - miniforge3-22.9.0-2: `asdf local python miniforge3-22.9.0-2` (22.11.1)
-    - miniforge-pypy3: `asdf local python miniforge-pypy3` (22.11.1)
-    - mambaforge-22.9.0-2: `asdf local python mambaforge-22.9.0-2` (22.11.1)
-    - mambaforge-pypy3: `asdf local python mambaforge-pypy3` (22.11.1)
