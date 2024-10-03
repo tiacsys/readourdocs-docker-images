@@ -20,17 +20,17 @@ README.md).
 
 - based on [Docker image definitions used by Read the
   Docs](https://github.com/readthedocs/readthedocs-docker-images),
-  **ubuntu-22.04-2022.03.15**
+  **ubuntu-22.04-2024.01.29**
   - Ubuntu 22.04
   - TeX Live 2021
 - extend with:
   - Ubuntu 22.04 package upgrade
   - locales for English unicode (`en_US.UTF-8`)
   - locales for German unicode (`de_DE.UTF-8`)
-  - **Python 3.10.6** (`python3`, `pip3`)
+  - **Python 3.10.12** (`python3`, `pip3`)
   - **LLVM C/C++** compiler **14.0** (`clang`, `clang++`)
-  - **GNU C/C++** compiler **11.2.0** (`gcc`, `g++`)
-  - **GNU Fortran 95** compiler **11.2.0** (`gfortran`)
+  - **GNU C/C++** compiler **11.4.0** (`gcc`, `g++`)
+  - **GNU Fortran 95** compiler **11.4.0** (`gfortran`)
   - **OpenJDK 11** (`java`, `javac`)
   - **SWIG 4.0.2** (`swig`)
   - **TeX Live 2022** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
@@ -41,42 +41,43 @@ README.md).
   - **poppler-utils 22.02.0** (`pdf2svg`, `pdftocairo`)
 - extend with asdf:
   - **Rust**:
-    - **1.66.0**: `asdf local rust 1.66.0` (default)
+    - **1.81.0**: `asdf local rust 1.81.0` (default)
+    - **1.76.0**: `asdf global rust 1.76.0`
+    - **1.67.1**: `asdf global rust 1.67.1`
   - **Golang**:
-    - **1.18.9**: `asdf local golang 1.18.9` (default)
+    - **1.23.1**: `asdf local golang 1.23.1` (default)
+    - **1.21.13**: `asdf global golang 1.21.13`
+    - **1.19.13**: `asdf global golang 1.19.13`
   - **Nodejs**:
-    - **18.12.1**: `asdf local nodejs 18.12.1` (default)
+    - **22.9.0**: `asdf local nodejs 22.9.0` (default)
+    - **20.17.0**: `asdf global nodejs 20.17.0`
+    - **18.20.4**: `asdf global nodejs 18.20.4`
+  - **Ruby**:
+    - **3.3.5**: `asdf local ruby 3.3.5` (default)
+    - **3.2.5**: `asdf global ruby 3.2.5`
+    - **3.1.6**: `asdf global ruby 3.1.6`
   - **Python**:
-    - **3.10.9**: `asdf local python 3.10.9` (default)
-- not yet add with asdf:
-  - **Rust**:
-    - 1.49.0: `asdf local rust 1.49.0`
-    - 1.57.0: `asdf local rust 1.57.0`
-  - **Golang**:
-    - 1.15.15: `asdf local golang 1.15.15`
-    - 1.16.15: `asdf local golang 1.16.15`
-    - 1.17.13: `asdf local golang 1.17.13`
-    - 1.19.4: `asdf local golang 1.19.4`
-  - **Nodejs**:
-    - 14.21.2: `asdf local nodejs 14.21.2`
-    - 16.19.0: `asdf local nodejs 16.19.0`
-    - 19.3.0: `asdf local nodejs 19.3.0`
-  - **Python**:
-    - 2.7.18: `asdf local python 2.7.18` (obsolete)
-    - 3.6.15: `asdf local python 3.6.15` (deprecated)
-    - 3.7.16: `asdf local python 3.7.16`
-    - 3.8.16: `asdf local python 3.8.16`
-    - 3.9.16: `asdf local python 3.9.16`
-    - 3.11.1: `asdf local python 3.11.1`
-    - pypy3.7-7.3.9: `asdf local python pypy3.7-7.3.9`
-    - pypy3.8-7.3.10: `asdf local python pypy3.8-7.3.10`
-    - pypy3.9-7.3.10: `asdf local python pypy3.9-7.3.10`
-    - anaconda3-2022.10: `asdf local python anaconda3-2022.10` (22.11.1)
-    - miniconda3-4.7.12: `asdf local python miniconda3-4.7.12` (22.11.1)
-    - miniforge3-22.9.0-2: `asdf local python miniforge3-22.9.0-2` (22.11.1)
-    - miniforge-pypy3: `asdf local python miniforge-pypy3` (22.11.1)
-    - mambaforge-22.9.0-2: `asdf local python mambaforge-22.9.0-2` (22.11.1)
-    - mambaforge-pypy3: `asdf local python mambaforge-pypy3` (22.11.1)
-  - Python packages:
-    - pip, setuptools, virtualenv, wheel, poetry, west
-    - numpy, scipy, pandas, matplotlib
+    - **3.12.7**: `asdf local python 3.12.7` (default)
+    - 3.11.10: security until October 2027, (deprecated)
+    - **3.10.15**: `asdf global python 3.10.15`
+    - **pypy3.10-7.3.17**: `asdf global python pypy3.10-7.3.17`
+    - 3.9.20: security until October 2025, (deprecated)
+    - 3.8.20: security until October 2024, (deprecated)
+    - 3.7.17: end-of-life since June 2023
+    - 3.6.15: end-of-life since December 2021
+    - 3.5.10: end-of-life since September 2020
+    - 3.4.10: end-of-life since March 2019
+    - 3.3.7: end-of-life since September 2017
+    - 3.2.6: end-of-life since February 2016
+    - 3.1.5: end-of-life since April 2012
+    - 3.0.1: end-of-life since June 2009
+    - **2.7.18**: `asdf global python 2.7.18` (obsolete)
+    - **pypy2.7-7.3.17**: `asdf global python pypy2.7-7.3.17`
+- Python packages:
+  - `pip==24.2`
+  - `setuptools==75.1.0`
+  - `virtualenv==20.26.6`
+  - `wheel==0.44.0`
+  - `poetry==1.6.1`
+  - `west==1.2.0`
+  - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`

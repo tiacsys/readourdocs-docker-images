@@ -1,0 +1,25 @@
+name: Retention Policy
+
+on:
+  schedule:
+    # every hour
+    - cron: '5 * * * *'
+  workflow_dispatch: # And manually on button click
+
+jobs:
+  clean:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Delete all untagged container versions except last 12
+      # https://github.com/actions/delete-package-versions
+      - name: Delete all untagged Docker images
+        uses: actions/delete-package-versions@v5
+        id: delete
+        with:
+          package-name: ${{ github.event.repository.name }}
+          package-type: 'container'
+          min-versions-to-keep: 12
+          delete-only-untagged-versions: 'true'
+          token: ${{ secrets.GITHUB_TOKEN }}
