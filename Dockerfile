@@ -1,12 +1,16 @@
 # Read Our Docs - Environment base
 #
 #  -- derived from Read The Docs base environment
-#  -- see: https://hub.docker.com/r/readthedocs/build
+#  -- see: https://hub.docker.com/r/readthedocs/build/tags
 #  -- see: https://github.com/readthedocs/readthedocs-docker-images
 #
 FROM readthedocs/build:ubuntu-22.04-2024.01.29
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
 LABEL version="unstable"
+
+LABEL org.opencontainers.image.vendor="TiaC Systems Network"
+LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
+LABEL org.opencontainers.image.documentation="https://github.com/tiacsys/readourdocs-docker-images/blob/main/README.md"
 
 # ############################################################################
 
