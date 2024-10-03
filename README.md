@@ -20,25 +20,25 @@ README.md).
 
 - based on [Docker image definitions used by Read the
   Docs](https://github.com/readthedocs/readthedocs-docker-images),
-  **ubuntu-22.04-2024.01.29**
-  - Ubuntu 22.04
-  - TeX Live 2021
+  **ubuntu-24.04-2024.06.17**
+  - Ubuntu 24.04
+  - TeX Live 2023
 - extend with:
-  - Ubuntu 22.04 package upgrade
+  - Ubuntu 24.04 package upgrade
   - locales for English unicode (`en_US.UTF-8`)
   - locales for German unicode (`de_DE.UTF-8`)
-  - **Python 3.10.12** (`python3`, `pip3`)
-  - **LLVM C/C++** compiler **14.0** (`clang`, `clang++`)
-  - **GNU C/C++** compiler **11.4.0** (`gcc`, `g++`)
-  - **GNU Fortran 95** compiler **11.4.0** (`gfortran`)
-  - **OpenJDK 11** (`java`, `javac`)
-  - **SWIG 4.0.2** (`swig`)
-  - **TeX Live 2022** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
-  - **ImageMagick 6.9.11.60** (`convert`)
+  - **Python 3.12.3** (`python3`, `pip3`)
+  - **LLVM C/C++** compiler **18.1.3** (`clang`, `clang++`)
+  - **GNU C/C++** compiler **13.2.0** (`gcc`, `g++`)
+  - **GNU Fortran 95** compiler **13.2.0** (`gfortran`)
+  - **OpenJDK 21** (`java`, `javac`)
+  - **SWIG 4.2.0** (`swig`)
+  - **TeX Live 2023** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
+  - **ImageMagick 6.9.12.98** (`convert`)
   - **Graphviz 2.43.0** (`dot`)
   - **PlantUML 1.2020.2** (`plantuml`)
-  - **librsvg2-bin 2.52.5** (`rsvg-convert`)
-  - **poppler-utils 22.02.0** (`pdf2svg`, `pdftocairo`)
+  - **librsvg2-bin 2.58.0** (`rsvg-convert`)
+  - **poppler-utils 24.02.0** (`pdf2svg`, `pdftocairo`)
 - extend with asdf:
   - **Rust**:
     - **1.81.0**: `asdf local rust 1.81.0` (default)

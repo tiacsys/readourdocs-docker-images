@@ -4,9 +4,13 @@
 #  -- see: https://hub.docker.com/r/readthedocs/build/tags
 #  -- see: https://github.com/readthedocs/readthedocs-docker-images
 #
-FROM readthedocs/build:ubuntu-22.04-2024.01.29
+#  -- derived from Ubuntu official Docker image
+#  -- see: https://hub.docker.com/_/ubuntu/tags
+#  -- see: https://github.com/docker-library/official-images
+#
+FROM readthedocs/build:ubuntu-24.04-2024.06.17
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
-LABEL version="2024.9.1"
+LABEL version="unstable"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
