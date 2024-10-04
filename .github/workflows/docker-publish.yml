@@ -44,6 +44,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Free Disk Space on Ubuntu runners, clear up to 35 GB disk space
+      # https://github.com/jlumbroso/free-disk-space
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          # Tool cache: Saved 8.3GiB
+          tool-cache: true
+          # Android library: Saved 7.5GiB
+          android: true
+          # .NET runtime: Saved 1.6GiB
+          dotnet: true
+          # Haskell runtime: Saved 5.4GiB
+          haskell: true
+          # Large misc. packages: Saved 4.8GiB
+          large-packages: true
+          # Docker images: Saved 3.2GiB
+          docker-packages: true
+          # Swap storage: Saved 4.0GiB
+          swap-storage: true
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
@@ -90,7 +110,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          no-cache: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
