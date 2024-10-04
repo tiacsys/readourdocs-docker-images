@@ -73,6 +73,8 @@ README.md).
     - 3.0.1: end-of-life since June 2009
     - **2.7.18**: `asdf global python 2.7.18` (obsolete)
     - **pypy2.7-7.3.17**: `asdf global python pypy2.7-7.3.17`
+  - **PyPA pipx**:
+    - **1.7.1**: `asdf local pipx 1.7.1` (default)
 - Python packages:
   - `pip==24.2`
   - `setuptools==75.1.0`

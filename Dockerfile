@@ -195,6 +195,9 @@ RUN asdf update
 RUN asdf plugin update --all
 RUN asdf version
 
+# Install asdf plugins
+RUN asdf plugin add pipx https://github.com/yozachar/asdf-pipx.git
+
 # ############################################################################
 
 #
@@ -331,6 +334,33 @@ LABEL ruby.version_33=$ROD_RUBY_VERSION_33
 # Set default Ruby version
 RUN asdf local ruby $ROD_RUBY_VERSION_33
 RUN asdf list  ruby
+
+# ############################################################################
+
+#
+# PyPA pipx for Python runtime version
+# https://repology.org/project/pipx/versions
+# https://pipx.pypa.io/stable/installation
+# https://github.com/pypa/pipx
+#
+
+# Define pipx version to be installed via asdf
+ENV ROD_PIPX_VERSION=1.7.1
+
+# Install pipx version
+RUN asdf install pipx $ROD_PIPX_VERSION && \
+    asdf global  pipx $ROD_PIPX_VERSION && \
+    asdf reshim  pipx
+
+# Adding labels for external usage
+LABEL pipx.version=$ROD_PIPX_VERSION
+
+# Set default pipx version
+RUN asdf local pipx $ROD_PIPX_VERSION
+RUN asdf list  pipx
+
+# Ensure PATH environment variable for pipx
+RUN pipx ensurepath
 
 # ############################################################################
 
