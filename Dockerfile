@@ -168,7 +168,7 @@ RUN apt-get clean
 
 # running Chromium within DeckTape extra requirements
 RUN apt-get install -y \
-    libasound2 \
+    libasound2t64 \
     libgbm1
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
