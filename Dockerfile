@@ -10,7 +10,7 @@
 #
 FROM readthedocs/build:ubuntu-24.04-2024.06.17
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
-LABEL version="unstable"
+LABEL version="2024.10.0"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
