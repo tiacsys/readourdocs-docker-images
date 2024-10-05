@@ -173,6 +173,12 @@ RUN apt-get install -y \
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
+# asdf OpenJDK 21 extra requirements
+RUN apt-get install -y \
+    openjdk-21-jdk
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
 # ############################################################################
 
 #
