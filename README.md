@@ -20,25 +20,25 @@ README.md).
 
 - based on [Docker image definitions used by Read the
   Docs](https://github.com/readthedocs/readthedocs-docker-images),
-  **ubuntu-22.04-2024.01.29**
-  - Ubuntu 22.04
-  - TeX Live 2021
+  **ubuntu-24.04-2024.06.17**
+  - Ubuntu 24.04
+  - TeX Live 2023
 - extend with:
-  - Ubuntu 22.04 package upgrade
+  - Ubuntu 24.04 package upgrade
   - locales for English unicode (`en_US.UTF-8`)
   - locales for German unicode (`de_DE.UTF-8`)
-  - **Python 3.10.12** (`python3`, `pip3`)
-  - **LLVM C/C++** compiler **14.0** (`clang`, `clang++`)
-  - **GNU C/C++** compiler **11.4.0** (`gcc`, `g++`)
-  - **GNU Fortran 95** compiler **11.4.0** (`gfortran`)
-  - **OpenJDK 11** (`java`, `javac`)
-  - **SWIG 4.0.2** (`swig`)
-  - **TeX Live 2022** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
-  - **ImageMagick 6.9.11.60** (`convert`)
+  - **Python 3.12.3** (`python3`, `pip3`)
+  - **LLVM C/C++** compiler **18.1.3** (`clang`, `clang++`)
+  - **GNU C/C++** compiler **13.2.0** (`gcc`, `g++`)
+  - **GNU Fortran 95** compiler **13.2.0** (`gfortran`)
+  - **OpenJDK 21** (`java`, `javac`)
+  - **SWIG 4.2.0** (`swig`)
+  - **TeX Live 2023** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
+  - **ImageMagick 6.9.12.98** (`convert`)
   - **Graphviz 2.43.0** (`dot`)
   - **PlantUML 1.2020.2** (`plantuml`)
-  - **librsvg2-bin 2.52.5** (`rsvg-convert`)
-  - **poppler-utils 22.02.0** (`pdf2svg`, `pdftocairo`)
+  - **librsvg2-bin 2.58.0** (`rsvg-convert`)
+  - **poppler-utils 24.02.0** (`pdf2svg`, `pdftocairo`)
 - extend with asdf:
   - **Rust**:
     - **1.81.0**: `asdf local rust 1.81.0` (default)
@@ -73,11 +73,23 @@ README.md).
     - 3.0.1: end-of-life since June 2009
     - **2.7.18**: `asdf global python 2.7.18` (obsolete)
     - **pypy2.7-7.3.17**: `asdf global python pypy2.7-7.3.17`
+  - **PyPA pipx**:
+    - **1.7.1**: `asdf local pipx 1.7.1` (default)
 - Python packages:
   - `pip==24.2`
   - `setuptools==75.1.0`
   - `virtualenv==20.26.6`
   - `wheel==0.44.0`
-  - `poetry==1.6.1`
+  - `poetry==1.8.3`
   - `west==1.2.0`
   - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
+- PyPA pipx packages at Python 3.12:
+  - **poetry@1.8.3**: `pipx install --suffix=@1.8.3 poetry==1.8.3`
+  - **poetry@1.7.1**: `pipx install --suffix=@1.7.1 poetry==1.7.1`
+- PyPA pipx packages at Python 3.10:
+  - **poetry@1.6.1**: `pipx install --suffix=@1.6.1 poetry==1.6.1`
+  - **poetry@1.5.1**: `pipx install --suffix=@1.5.1 poetry==1.5.1`
+  - **poetry@1.4.2**: `pipx install --suffix=@1.4.2 poetry==1.4.2`
+  - **poetry@1.3.2**: `pipx install --suffix=@1.3.2 poetry==1.3.2`
+  - **poetry@1.2.2**: `pipx install --suffix=@1.2.2 poetry==1.2.2`
+  - **poetry@1.1.15**: `pipx install --suffix=@1.1.15 poetry==1.1.15`

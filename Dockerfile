@@ -4,9 +4,13 @@
 #  -- see: https://hub.docker.com/r/readthedocs/build/tags
 #  -- see: https://github.com/readthedocs/readthedocs-docker-images
 #
-FROM readthedocs/build:ubuntu-22.04-2024.01.29
+#  -- derived from Ubuntu official Docker image
+#  -- see: https://hub.docker.com/_/ubuntu/tags
+#  -- see: https://github.com/docker-library/official-images
+#
+FROM readthedocs/build:ubuntu-24.04-2024.06.17
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
-LABEL version="2024.9.1"
+LABEL version="2024.10.0"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
@@ -164,8 +168,14 @@ RUN apt-get clean
 
 # running Chromium within DeckTape extra requirements
 RUN apt-get install -y \
-    libasound2 \
+    libasound2t64 \
     libgbm1
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# asdf OpenJDK 21 extra requirements
+RUN apt-get install -y \
+    openjdk-21-jdk
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
@@ -184,6 +194,9 @@ WORKDIR /home/docs
 RUN asdf update
 RUN asdf plugin update --all
 RUN asdf version
+
+# Install asdf plugins
+RUN asdf plugin add pipx https://github.com/yozachar/asdf-pipx.git
 
 # ############################################################################
 
@@ -325,6 +338,33 @@ RUN asdf list  ruby
 # ############################################################################
 
 #
+# PyPA pipx for Python runtime version
+# https://repology.org/project/pipx/versions
+# https://pipx.pypa.io/stable/installation
+# https://github.com/pypa/pipx
+#
+
+# Define pipx version to be installed via asdf
+ENV ROD_PIPX_VERSION=1.7.1
+
+# Install pipx version
+RUN asdf install pipx $ROD_PIPX_VERSION && \
+    asdf global  pipx $ROD_PIPX_VERSION && \
+    asdf reshim  pipx
+
+# Adding labels for external usage
+LABEL pipx.version=$ROD_PIPX_VERSION
+
+# Set default pipx version
+RUN asdf local pipx $ROD_PIPX_VERSION
+RUN asdf list  pipx
+
+# Ensure PATH environment variable for pipx
+RUN pipx ensurepath
+
+# ############################################################################
+
+#
 # Python runtime versions
 # https://www.python.org/downloads
 # https://devguide.python.org/versions
@@ -390,7 +430,7 @@ ENV ROD_PIP_VERSION=24.2
 ENV ROD_SETUPTOOLS_VERSION=75.1.0
 ENV ROD_VIRTUALENV_VERSION=20.26.6
 ENV ROD_WHEEL_VERSION=0.44.0
-ENV ROD_POETRY_VERSION=1.6.1
+ENV ROD_POETRY_VERSION=1.8.3
 ENV ROD_WEST_VERSION=1.2.0
 
 # Install Python package versions
@@ -434,6 +474,56 @@ LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
 LABEL python.wheel=$ROD_WHEEL_VERSION
 LABEL python.poetry=$ROD_POETRY_VERSION
 LABEL python.west=$ROD_WEST_VERSION
+
+# Define Python package versions to be installed via pipx
+ENV ROD_POETRY_VERSION_18=1.8.3
+ENV ROD_POETRY_VERSION_17=1.7.1
+ENV ROD_POETRY_VERSION_16=1.6.1
+ENV ROD_POETRY_VERSION_15=1.5.1
+ENV ROD_POETRY_VERSION_14=1.4.2
+ENV ROD_POETRY_VERSION_13=1.3.2
+ENV ROD_POETRY_VERSION_12=1.2.2
+ENV ROD_POETRY_VERSION_11=1.1.15
+
+# Install Python 3.12 package versions
+RUN asdf local python $ROD_PYTHON_VERSION_312 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_18 \
+                   poetry==$ROD_POETRY_VERSION_18 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_18 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_17 \
+                   poetry==$ROD_POETRY_VERSION_17 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_17
+
+# Install Python 3.10 package versions
+RUN asdf local python $ROD_PYTHON_VERSION_310 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_16 \
+                   poetry==$ROD_POETRY_VERSION_16 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_16 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_15 \
+                   poetry==$ROD_POETRY_VERSION_15 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_15 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_14 \
+                   poetry==$ROD_POETRY_VERSION_14 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_14 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_13 \
+                   poetry==$ROD_POETRY_VERSION_13 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_13 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_12 \
+                   poetry==$ROD_POETRY_VERSION_12 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_12 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_11 \
+                   poetry==$ROD_POETRY_VERSION_11 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_11
+
+# Adding labels for external usage
+LABEL python.poetry_18=$ROD_POETRY_VERSION_18
+LABEL python.poetry_17=$ROD_POETRY_VERSION_17
+LABEL python.poetry_16=$ROD_POETRY_VERSION_16
+LABEL python.poetry_15=$ROD_POETRY_VERSION_15
+LABEL python.poetry_14=$ROD_POETRY_VERSION_14
+LABEL python.poetry_13=$ROD_POETRY_VERSION_13
+LABEL python.poetry_12=$ROD_POETRY_VERSION_12
+LABEL python.poetry_11=$ROD_POETRY_VERSION_11
 
 # Set default Python version
 RUN asdf local python $ROD_PYTHON_VERSION_312
