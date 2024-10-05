@@ -78,6 +78,6 @@ README.md).
   - `setuptools==75.1.0`
   - `virtualenv==20.26.6`
   - `wheel==0.44.0`
-  - `poetry==1.6.1`
+  - `poetry==1.8.3`
   - `west==1.2.0`
   - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
