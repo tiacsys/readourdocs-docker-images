@@ -27,7 +27,7 @@ Once your image is built, you can test your image locally by running a shell in
 a container using your new image:
 
 ```bash
-docker run --rm -t -i tiacsys/readourdocs-docker-images:local /bin/bash
+docker run --rm -t -i tiacsys/readourdocs-docker-images:local
 ```
 
 This will put you into the root path in the container, as the ``docs`` user.
@@ -41,15 +41,21 @@ cd tutorial-template
 ```
 
 ```bash
-asdf reshim python
-pip3 install --upgrade pip setuptools
-pip3 install --requirement docs/requirements.txt
-pip3 install .
-asdf reshim python
+pip install --upgrade pip setuptools
+pip install --requirement docs/requirements.txt
+pip install .
 ```
 
 ```bash
 make -C docs html latexpdf
+```
+
+The locally created Docker image for tests and the Docker Builder cache can be
+completely deleted at any time with:
+
+```bash
+docker image rm tiacsys/readourdocs-docker-images:local
+docker builder prune --all --force
 ```
 
 Releases
