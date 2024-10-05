@@ -475,6 +475,18 @@ LABEL python.wheel=$ROD_WHEEL_VERSION
 LABEL python.poetry=$ROD_POETRY_VERSION
 LABEL python.west=$ROD_WEST_VERSION
 
+# Define Python package versions to be installed via pipx
+ENV ROD_POETRY_VERSION_11=1.1.15
+
+# Install Python 3.10 package versions
+RUN asdf local python $ROD_PYTHON_VERSION_310 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_11 \
+                   poetry==$ROD_POETRY_VERSION_11 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_11
+
+# Adding labels for external usage
+LABEL python.poetry_11=$ROD_POETRY_VERSION_11
+
 # Set default Python version
 RUN asdf local python $ROD_PYTHON_VERSION_312
 RUN asdf list  python
