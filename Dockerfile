@@ -476,12 +476,19 @@ LABEL python.poetry=$ROD_POETRY_VERSION
 LABEL python.west=$ROD_WEST_VERSION
 
 # Define Python package versions to be installed via pipx
+ENV ROD_POETRY_VERSION_17=1.7.1
 ENV ROD_POETRY_VERSION_16=1.6.1
 ENV ROD_POETRY_VERSION_15=1.5.1
 ENV ROD_POETRY_VERSION_14=1.4.2
 ENV ROD_POETRY_VERSION_13=1.3.2
 ENV ROD_POETRY_VERSION_12=1.2.2
 ENV ROD_POETRY_VERSION_11=1.1.15
+
+# Install Python 3.12 package versions
+RUN asdf local python $ROD_PYTHON_VERSION_312 && \
+    pipx install --suffix=@$ROD_POETRY_VERSION_17 \
+                   poetry==$ROD_POETRY_VERSION_17 && \
+    pipx pin       poetry@$ROD_POETRY_VERSION_17
 
 # Install Python 3.10 package versions
 RUN asdf local python $ROD_PYTHON_VERSION_310 && \
@@ -505,6 +512,7 @@ RUN asdf local python $ROD_PYTHON_VERSION_310 && \
     pipx pin       poetry@$ROD_POETRY_VERSION_11
 
 # Adding labels for external usage
+LABEL python.poetry_17=$ROD_POETRY_VERSION_17
 LABEL python.poetry_16=$ROD_POETRY_VERSION_16
 LABEL python.poetry_15=$ROD_POETRY_VERSION_15
 LABEL python.poetry_14=$ROD_POETRY_VERSION_14
