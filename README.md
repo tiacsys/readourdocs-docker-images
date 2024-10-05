@@ -84,6 +84,7 @@ README.md).
   - `west==1.2.0`
   - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
 - PyPA pipx packages at Python 3.10:
+  - **poetry@1.5.1**: `pipx install --suffix=@1.5.1 poetry==1.5.1`
   - **poetry@1.4.2**: `pipx install --suffix=@1.4.2 poetry==1.4.2`
   - **poetry@1.3.2**: `pipx install --suffix=@1.3.2 poetry==1.3.2`
   - **poetry@1.2.2**: `pipx install --suffix=@1.2.2 poetry==1.2.2`
