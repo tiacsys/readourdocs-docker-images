@@ -472,33 +472,6 @@ RUN asdf list  ruby
 # ############################################################################
 
 #
-# PyPA pipx for Python runtime version
-# https://repology.org/project/pipx/versions
-# https://pipx.pypa.io/stable/installation
-# https://github.com/pypa/pipx
-#
-
-# Define pipx version to be installed via asdf
-ENV ROD_PIPX_VERSION=1.7.1
-
-# Install pipx version
-RUN asdf install pipx $ROD_PIPX_VERSION && \
-    asdf global  pipx $ROD_PIPX_VERSION && \
-    asdf reshim  pipx
-
-# Adding labels for external usage
-LABEL pipx.version=$ROD_PIPX_VERSION
-
-# Set default pipx version
-RUN asdf local pipx $ROD_PIPX_VERSION
-RUN asdf list  pipx
-
-# Ensure PATH environment variable for pipx
-RUN pipx ensurepath
-
-# ############################################################################
-
-#
 # Python runtime versions
 # https://www.python.org/downloads
 # https://devguide.python.org/versions
@@ -608,6 +581,46 @@ LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
 LABEL python.wheel=$ROD_WHEEL_VERSION
 LABEL python.poetry=$ROD_POETRY_VERSION
 LABEL python.west=$ROD_WEST_VERSION
+
+# Set default Python version
+RUN asdf local python $ROD_PYTHON_VERSION_312
+RUN asdf list  python
+
+# ############################################################################
+
+#
+# PyPA pipx for Python runtime version
+# https://repology.org/project/pipx/versions
+# https://pipx.pypa.io/stable/installation
+# https://github.com/pypa/pipx
+#
+
+# Define pipx version to be installed via asdf
+ENV ROD_PIPX_VERSION=1.7.1
+ENV ROD_PIPX_ARGCOMPLETE_VERSION=3.5.0
+
+# Install pipx version
+RUN asdf install pipx $ROD_PIPX_VERSION && \
+    asdf global  pipx $ROD_PIPX_VERSION && \
+    asdf reshim  pipx
+
+# Adding labels for external usage
+LABEL pipx.version=$ROD_PIPX_VERSION
+LABEL pipx_argcomplete.version=$ROD_PIPX_ARGCOMPLETE_VERSION
+
+# Set default pipx version
+RUN asdf local pipx $ROD_PIPX_VERSION
+RUN asdf list  pipx
+
+# Ensure PATH environment variable for pipx
+RUN pipx ensurepath
+
+# Enabling shell completions for pipx
+RUN pipx install argcomplete==$ROD_PIPX_ARGCOMPLETE_VERSION && \
+    pipx pin     argcomplete && \
+    echo 'eval "$(register-python-argcomplete pipx)"' >> /home/docs/.bashrc
+
+# ############################################################################
 
 # Define Python package versions to be installed via pipx
 ENV ROD_POETRY_VERSION_18=1.8.3
