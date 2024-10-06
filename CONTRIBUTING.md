@@ -28,7 +28,7 @@ After making changes to the ``Dockerfile``, you can build your image with:
 
 ```bash
 docker buildx build --tag tiacsys/readourdocs-docker-images:local \
-                    --platform linux/amd64 \
+                    --platform linux/amd64,linux/arm/v7 \
                     --builder rod-ctn-builder --load .
 ```
 
