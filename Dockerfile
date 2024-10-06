@@ -4,13 +4,130 @@
 #  -- see: https://hub.docker.com/_/ubuntu/tags
 #  -- see: https://github.com/docker-library/official-images
 #
-FROM ubuntu:noble-20240904.1
+#  -- support Docker multi-platform image build
+#  -- see: https://docs.docker.com/build/building/multi-platform
+#  -- see: https://docs.docker.com/build/building/variables/#multi-platform-build-arguments
+#
+#  -- TARGETPLATFORM=linux/amd64: TARGETOS=linux, TARGETARCH=amd64, TARGETVARIANT=
+#
+
+# ############################################################################
+#
+# Base system maintenance with official Ubuntu Docker image
+#
+# ############################################################################
+
+FROM ubuntu:noble-20240904.1 AS base
+
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
 LABEL version="unstable"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
 LABEL org.opencontainers.image.documentation="https://github.com/tiacsys/readourdocs-docker-images/blob/main/README.md"
+
+# ############################################################################
+
+#
+# asdf-vm runtime version
+# https://asdf-vm.com/
+# https://github.com/asdf-vm/asdf/blob/master/CHANGELOG.md
+#
+
+# Define asdf-vm branch to be installed via git-clone
+ENV ROD_ASDF_BRANCH=v0.14.1
+
+#
+# Rust runtime versions
+# https://releases.rs/
+#
+
+# Define Rust versions to be installed via asdf
+ENV ROD_RUST_VERSION_2024=1.81.0
+ENV ROD_RUST_VERSION_2023=1.76.0
+ENV ROD_RUST_VERSION_2022=1.67.1
+
+#
+# Golang runtime versions
+# https://go.dev/doc/devel/release
+#
+
+# Define Golang versions to be installed via asdf
+ENV ROD_GOLANG_VERSION_2024=1.23.1
+ENV ROD_GOLANG_VERSION_2023=1.21.13
+ENV ROD_GOLANG_VERSION_2022=1.19.13
+
+#
+# Node.js runtime versions
+# https://nodejs.org/en/about/previous-releases
+#
+
+# Define Node.js versions to be installed via asdf
+ENV ROD_NODEJS_VERSION_22=22.9.0
+ENV ROD_NODEJS_VERSION_20=20.17.0
+ENV ROD_NODEJS_VERSION_18=18.20.4
+
+#
+# Ruby runtime versions
+# https://www.ruby-lang.org/en/downloads/branches
+# https://www.ruby-lang.org/en/downloads/releases
+#
+
+# Define Ruby versions to be installed via asdf
+ENV ROD_RUBY_VERSION_33=3.3.5
+ENV ROD_RUBY_VERSION_32=3.2.5
+ENV ROD_RUBY_VERSION_31=3.1.6
+
+#
+# Python runtime versions
+# https://www.python.org/downloads
+# https://devguide.python.org/versions
+#
+# PyPy runtime versions
+# https://downloads.python.org/pypy
+# https://pypy.org/download_advanced.html
+# https://pypy.org/categories/release.html
+# https://doc.pypy.org/en/latest/index-of-release-notes.html
+#
+
+# Define Python versions to be installed via asdf
+ENV ROD_PYTHON_VERSION_312=3.12.7
+ENV ROD_PYTHON_VERSION_310=3.10.15
+ENV ROD_PYTHON_VERSION_27=2.7.18
+ENV ROD_PYPY_VERSION_3=pypy3.10-7.3.17
+ENV ROD_PYPY_VERSION_2=pypy2.7-7.3.17
+
+# Define CPython default behaviour for compilations (shared libraries)
+ENV PYTHON_CONFIGURE_OPTS=--enable-shared
+
+# Define Python package versions to be installed via pip
+ENV ROD_PIP_VERSION=24.2
+ENV ROD_SETUPTOOLS_VERSION=75.1.0
+ENV ROD_VIRTUALENV_VERSION=20.26.6
+ENV ROD_WHEEL_VERSION=0.44.0
+ENV ROD_POETRY_VERSION=1.8.3
+ENV ROD_WEST_VERSION=1.2.0
+
+#
+# PyPA pipx for Python runtime version
+# https://repology.org/project/pipx/versions
+# https://pipx.pypa.io/stable/installation
+# https://github.com/pypa/pipx
+#
+
+# Define pipx version to be installed via asdf
+ENV ROD_PIPX_VERSION=1.7.1
+ENV ROD_PIPX_ARGCOMPLETE_VERSION=3.5.0
+
+# Define Python package versions to be installed via pipx
+ENV ROD_POETRY_VERSION_18=1.8.3
+ENV ROD_POETRY_VERSION_17=1.7.1
+ENV ROD_POETRY_VERSION_16=1.6.1
+ENV ROD_POETRY_VERSION_15=1.5.1
+ENV ROD_POETRY_VERSION_14=1.4.2
+ENV ROD_POETRY_VERSION_13=1.3.2
+ENV ROD_POETRY_VERSION_12=1.2.2
+ENV ROD_POETRY_VERSION_11=1.1.15
 
 # ############################################################################
 
@@ -233,7 +350,7 @@ RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
 # asdf Golang extra requirements
-# https://github.com/kennyp/asdf-golang#linux-debian
+# https://github.com/asdf-community/asdf-golang#linux-debian
 RUN apt-get install -y \
     coreutils
 RUN apt-get -y autoremove --purge
@@ -303,12 +420,12 @@ USER docs
 WORKDIR /home/docs
 
 # Install asdf
-RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --depth 1 --branch v0.14.1
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --depth 1 --branch $ROD_ASDF_BRANCH
 RUN echo ". /home/docs/.asdf/asdf.sh" >> /home/docs/.bashrc
 RUN echo ". /home/docs/.asdf/completions/asdf.bash" >> /home/docs/.bashrc
 
 # Activate asdf in current session
-ENV PATH /home/docs/.asdf/shims:/home/docs/.asdf/bin:$PATH
+ENV PATH=/home/docs/.asdf/shims:/home/docs/.asdf/bin:$PATH
 
 # Install asdf plugins
 RUN asdf plugin add pipx   https://github.com/yozachar/asdf-pipx.git
@@ -326,6 +443,9 @@ RUN mkdir -p /home/docs/.asdf/installs/pipx && \
     mkdir -p /home/docs/.asdf/installs/golang && \
     mkdir -p /home/docs/.asdf/installs/ruby
 
+# Adding labels for external usage
+LABEL asdf.branch=$ROD_ASDF_BRANCH
+
 # Upgrade asdf version manager
 # https://github.com/asdf-vm/asdf
 RUN asdf update
@@ -333,16 +453,18 @@ RUN asdf plugin update --all
 RUN asdf version
 
 # ############################################################################
+#
+# AMD/x86 64-bit architecture maintenance
+#
+# ############################################################################
+
+FROM base AS build-amd64
+
+# ############################################################################
 
 #
 # Rust runtime versions
-# https://releases.rs/
 #
-
-# Define Rust versions to be installed via asdf
-ENV ROD_RUST_VERSION_2022=1.67.1
-ENV ROD_RUST_VERSION_2023=1.76.0
-ENV ROD_RUST_VERSION_2024=1.81.0
 
 # Install Rust versions
 RUN asdf install rust $ROD_RUST_VERSION_2022 && \
@@ -370,13 +492,7 @@ RUN asdf list  rust
 
 #
 # Golang runtime versions
-# https://go.dev/doc/devel/release
 #
-
-# Define Golang versions to be installed via asdf
-ENV ROD_GOLANG_VERSION_2022=1.19.13
-ENV ROD_GOLANG_VERSION_2023=1.21.13
-ENV ROD_GOLANG_VERSION_2024=1.23.1
 
 # Install Golang versions
 RUN asdf install golang $ROD_GOLANG_VERSION_2022 && \
@@ -404,13 +520,7 @@ RUN asdf list  golang
 
 #
 # Node.js runtime versions
-# https://nodejs.org/en/about/previous-releases
 #
-
-# Define Node.js versions to be installed via asdf
-ENV ROD_NODEJS_VERSION_18=18.20.4
-ENV ROD_NODEJS_VERSION_20=20.17.0
-ENV ROD_NODEJS_VERSION_22=22.9.0
 
 # Install Node.js versions
 RUN asdf install nodejs $ROD_NODEJS_VERSION_18 && \
@@ -438,14 +548,7 @@ RUN asdf list  nodejs
 
 #
 # Ruby runtime versions
-# https://www.ruby-lang.org/en/downloads/branches
-# https://www.ruby-lang.org/en/downloads/releases
 #
-
-# Define Ruby versions to be installed via asdf
-ENV ROD_RUBY_VERSION_31=3.1.6
-ENV ROD_RUBY_VERSION_32=3.2.5
-ENV ROD_RUBY_VERSION_33=3.3.5
 
 # Install Ruby versions
 RUN asdf install ruby $ROD_RUBY_VERSION_31 && \
@@ -472,25 +575,8 @@ RUN asdf list  ruby
 # ############################################################################
 
 #
-# Python runtime versions
-# https://www.python.org/downloads
-# https://devguide.python.org/versions
+# Python and PyPy runtime versions
 #
-# PyPy runtime versions
-# https://downloads.python.org/pypy
-# https://pypy.org/download_advanced.html
-# https://pypy.org/categories/release.html
-# https://doc.pypy.org/en/latest/index-of-release-notes.html
-#
-
-# Define Python versions to be installed via asdf
-ENV ROD_PYTHON_VERSION_27=2.7.18
-ENV ROD_PYTHON_VERSION_310=3.10.15
-ENV ROD_PYTHON_VERSION_312=3.12.7
-ENV ROD_PYPY_VERSION_2=pypy2.7-7.3.17
-ENV ROD_PYPY_VERSION_3=pypy3.10-7.3.17
-
-ENV PYTHON_CONFIGURE_OPTS=--enable-shared
 
 # Install Python versions
 RUN asdf install python $ROD_PYTHON_VERSION_27 && \
@@ -531,14 +617,6 @@ RUN asdf local python $ROD_PYPY_VERSION_2 && \
     pip install --upgrade virtualenv==20.15.1 && \
     pip install --upgrade wheel==0.37.1 && \
     pip install --upgrade poetry==1.1.15
-
-# Define Python package versions to be installed via pip
-ENV ROD_PIP_VERSION=24.2
-ENV ROD_SETUPTOOLS_VERSION=75.1.0
-ENV ROD_VIRTUALENV_VERSION=20.26.6
-ENV ROD_WHEEL_VERSION=0.44.0
-ENV ROD_POETRY_VERSION=1.8.3
-ENV ROD_WEST_VERSION=1.2.0
 
 # Install Python package versions
 RUN asdf local python $ROD_PYTHON_VERSION_310 && \
@@ -587,17 +665,18 @@ RUN asdf local python $ROD_PYTHON_VERSION_312
 RUN asdf list  python
 
 # ############################################################################
+#
+# All architectures maintenance
+#
+# ############################################################################
+
+FROM build-${TARGETARCH} AS build
+
+# ############################################################################
 
 #
 # PyPA pipx for Python runtime version
-# https://repology.org/project/pipx/versions
-# https://pipx.pypa.io/stable/installation
-# https://github.com/pypa/pipx
 #
-
-# Define pipx version to be installed via asdf
-ENV ROD_PIPX_VERSION=1.7.1
-ENV ROD_PIPX_ARGCOMPLETE_VERSION=3.5.0
 
 # Install pipx version
 RUN asdf install pipx $ROD_PIPX_VERSION && \
@@ -621,16 +700,6 @@ RUN pipx install argcomplete==$ROD_PIPX_ARGCOMPLETE_VERSION && \
     echo 'eval "$(register-python-argcomplete pipx)"' >> /home/docs/.bashrc
 
 # ############################################################################
-
-# Define Python package versions to be installed via pipx
-ENV ROD_POETRY_VERSION_18=1.8.3
-ENV ROD_POETRY_VERSION_17=1.7.1
-ENV ROD_POETRY_VERSION_16=1.6.1
-ENV ROD_POETRY_VERSION_15=1.5.1
-ENV ROD_POETRY_VERSION_14=1.4.2
-ENV ROD_POETRY_VERSION_13=1.3.2
-ENV ROD_POETRY_VERSION_12=1.2.2
-ENV ROD_POETRY_VERSION_11=1.1.15
 
 # Install Python 3.12 package versions
 RUN asdf local python $ROD_PYTHON_VERSION_312 && \

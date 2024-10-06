@@ -2,9 +2,9 @@
 
 ## Description
 
-This project creates the full-stack Docker image for processing [tutorial](
-https://bridle.tiac-systems.net/tutorials) and [training](
-https://bridle.tiac-systems.net/trainings) materials.
+This project creates the full-stack and multi-arch Docker images for processing
+[tutorial](https://bridle.tiac-systems.net/tutorials) and
+[training](https://bridle.tiac-systems.net/trainings) materials.
 
 ## Canonical source
 
@@ -18,70 +18,98 @@ README.md).
 
 ## Content
 
-- based on [Ubuntu official Docker image](
-  https://github.com/docker-library/official-images),
-  **ubuntu:noble-20240904.1**
-  - Ubuntu 24.04.1 LTS
-- extend with:
-  - Ubuntu system package upgrade
-  - locales for English unicode (`en_US.UTF-8`)
-  - locales for German unicode (`de_DE.UTF-8`)
-  - **Python 3.12.3** (`python3`, `pip3`)
-  - **LLVM C/C++** compiler **18.1.3** (`clang`, `clang++`)
-  - **GNU C/C++** compiler **13.2.0** (`gcc`, `g++`)
-  - **GNU Fortran 95** compiler **13.2.0** (`gfortran`)
-  - **OpenJDK 21** (`java`, `javac`)
-  - **SWIG 4.2.0** (`swig`)
-  - **TeX Live 2023** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
-  - **ImageMagick 6.9.12.98** (`convert`)
-  - **Graphviz 2.43.0** (`dot`)
-  - **PlantUML 1.2020.2** (`plantuml`)
-  - **librsvg2-bin 2.58.0** (`rsvg-convert`)
-  - **poppler-utils 24.02.0** (`pdf2svg`, `pdftocairo`)
-- extend with asdf:
-  - **Rust**:
-    - **1.81.0**: `asdf local rust 1.81.0` (default)
-    - **1.76.0**: `asdf global rust 1.76.0`
-    - **1.67.1**: `asdf global rust 1.67.1`
-  - **Golang**:
-    - **1.23.1**: `asdf local golang 1.23.1` (default)
-    - **1.21.13**: `asdf global golang 1.21.13`
-    - **1.19.13**: `asdf global golang 1.19.13`
-  - **Nodejs**:
-    - **22.9.0**: `asdf local nodejs 22.9.0` (default)
-    - **20.17.0**: `asdf global nodejs 20.17.0`
-    - **18.20.4**: `asdf global nodejs 18.20.4`
-  - **Ruby**:
-    - **3.3.5**: `asdf local ruby 3.3.5` (default)
-    - **3.2.5**: `asdf global ruby 3.2.5`
-    - **3.1.6**: `asdf global ruby 3.1.6`
-  - **Python**:
-    - **3.12.7**: `asdf local python 3.12.7` (default)
-    - 3.11.10: security until October 2027, (deprecated)
-    - **3.10.15**: `asdf global python 3.10.15`
-    - **pypy3.10-7.3.17**: `asdf global python pypy3.10-7.3.17`
-    - 3.9.20: security until October 2025, (deprecated)
-    - 3.8.20: security until October 2024, (deprecated)
-    - 3.7.17: end-of-life since June 2023
-    - 3.6.15: end-of-life since December 2021
-    - 3.5.10: end-of-life since September 2020
-    - 3.4.10: end-of-life since March 2019
-    - 3.3.7: end-of-life since September 2017
-    - 3.2.6: end-of-life since February 2016
-    - 3.1.5: end-of-life since April 2012
-    - 3.0.1: end-of-life since June 2009
-    - **2.7.18**: `asdf global python 2.7.18` (obsolete)
-    - **pypy2.7-7.3.17**: `asdf global python pypy2.7-7.3.17`
-  - **PyPA pipx**:
-    - **1.7.1**: `asdf local pipx 1.7.1` (default)
-- Python packages:
-  - `pip==24.2`
-  - `setuptools==75.1.0`
-  - `virtualenv==20.26.6`
-  - `wheel==0.44.0`
-  - `poetry==1.8.3`
-  - `west==1.2.0`
-  - only-binary: `numpy`, `scipy`, `pandas`, `matplotlib`
+Based on [Ubuntu official Docker image](
+https://github.com/docker-library/official-images),
+**ubuntu:noble-20240904.1**:
+
+- [Ubuntu](https://hub.docker.com/_/ubuntu) 24.04.1 LTS
+- Docker image architectures:
+  - Linux x86-64 (`linux/amd64`): https://hub.docker.com/r/amd64/ubuntu
+
+### Ubuntu system packages
+
+- Ubuntu system package upgrade
+- locales for English unicode (`en_US.UTF-8`)
+- locales for German unicode (`de_DE.UTF-8`)
+- **Python 3.12.3** (`python3`, `pip3`)
+- **LLVM C/C++** compiler **18.1.3** (`clang`, `clang++`)
+- **GNU C/C++** compiler **13.2.0** (`gcc`, `g++`)
+- **GNU Fortran 95** compiler **13.2.0** (`gfortran`)
+- **OpenJDK 21** (`java`, `javac`)
+- **SWIG 4.2.0** (`swig`)
+- **TeX Live 2023** (`latex`, `xelatex`, `pdflatex`, `xindy`, `latexmk`)
+- **ImageMagick 6.9.12.98** (`convert`)
+- **Graphviz 2.43.0** (`dot`)
+- **PlantUML 1.2020.2** (`plantuml`)
+- **librsvg2-bin 2.58.0** (`rsvg-convert`)
+- **poppler-utils 24.02.0** (`pdf2svg`, `pdftocairo`)
+
+### Multiple runtime environments
+
+Based on [**asdf**](https://asdf-vm.com/) **0.14.1**:
+
+| runtime environments | environment variable      | `linux/amd64` |
+| :------------------- | :------------------------ | :---: |
+| **Rust 1.81.0**      | `ROD_RUST_VERSION_2024`   | **X** |
+|   Rust 1.76.0        | `ROD_RUST_VERSION_2023`   |   X   |
+|   Rust 1.67.1        | `ROD_RUST_VERSION_2022`   |   X   |
+| **Golang 1.23.1**    | `ROD_GOLANG_VERSION_2024` | **X** |
+|   Golang 1.21.13     | `ROD_GOLANG_VERSION_2023` |   X   |
+|   Golang 1.19.13     | `ROD_GOLANG_VERSION_2022` |   X   |
+| **Node.js 22.9.0**   | `ROD_NODEJS_VERSION_22`   | **X** |
+|   Node.js 20.17.0    | `ROD_NODEJS_VERSION_20`   |   X   |
+|   Node.js 18.20.4    | `ROD_NODEJS_VERSION_18`   |   X   |
+| **Ruby 3.3.5**       | `ROD_RUBY_VERSION_33`     | **X** |
+|   Ruby 3.2.5         | `ROD_RUBY_VERSION_32`     |   X   |
+|   Ruby 3.1.6         | `ROD_RUBY_VERSION_31`     |   X   |
+| **Python 3.12.7**    | `ROD_PYTHON_VERSION_312`  | **X** |
+|   Python 3.10.15     | `ROD_PYTHON_VERSION_310`  |   X   |
+|   Python 2.7.18      | `ROD_PYTHON_VERSION_27`   |   X   |
+|   PyPy 3.10-7.3.17   | `ROD_PYPY_VERSION_3`      |   X   |
+|   PyPy 2.7-7.3.17    | `ROD_PYPY_VERSION_2`      |   X   |
+| **PyPA pipx 1.7.1**  | `ROD_PIPX_VERSION`        | **X** |
+
+**bold**: default runtime environment
+
+### Python 3 packages
+
+Based on [Python Package Index](https://pypi.org/) with pip:
+
+| PyPI package name      | environment variable      | `linux/amd64` |
+| :--------------------- | :------------------------ | :---: |
+| `pip==24.2`            | `ROD_PIP_VERSION`         |   X   |
+| `setuptools==75.1.0`   | `ROD_SETUPTOOLS_VERSION`  |   X   |
+| `virtualenv==20.26.6`  | `ROD_VIRTUALENV_VERSION`  |   X   |
+| `wheel==0.44.0`        | `ROD_WHEEL_VERSION`       |   X   |
+| `poetry==1.8.3`        | `ROD_POETRY_VERSION`      |   X   |
+| `west==1.2.0`          | `ROD_WEST_VERSION`        |   X   |
+| `numpy`                |                           | *(X)* |
+| `scipy`                |                           | *(X)* |
+| `pandas`               |                           | *(X)* |
+| `matplotlib`           |                           | *(X)* |
+
+*(X)*: binary only and not in PyPy (CPython only)
+
+### Python 2 packages (obsolete)
+
+Based on [Python Package Index](https://pypi.org/) with pip:
+
+| PyPI package name      | `linux/amd64` |
+| :--------------------- | :---: |
+| `pip==20.3.4`          |   X   |
+| `setuptools==44.1.1`   |   X   |
+| `virtualenv==20.15.1`  |   X   |
+| `wheel==0.37.1`        |   X   |
+| `poetry==1.1.15`       |   X   |
+| `numpy==1.16.6`        | *(X)* |
+| `scipy==1.2.3`         | *(X)* |
+| `pandas==0.24.2`       | *(X)* |
+| `matplotlib==2.2.5`    | *(X)* |
+
+*(X)*: binary only and not in PyPy (CPython only)
+
+### PyPA pipx packages
+
 - PyPA pipx packages at Python 3.12:
   - **argcomplete**: `pipx install argcomplete==3.5.0`
   - **poetry@1.8.3**: `pipx install --suffix=@1.8.3 poetry==1.8.3`
