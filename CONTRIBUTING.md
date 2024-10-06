@@ -21,7 +21,7 @@ docker build -t tiacsys/readourdocs-docker-images:local .
 ```
 
 This will take quite a long time, mostly due to LaTeX dependencies. The
-resulting image will be at least around 12GB.
+resulting image will be at least around 17GB.
 
 Once your image is built, you can test your image locally by running a shell in
 a container using your new image:

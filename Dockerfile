@@ -1,16 +1,12 @@
 # Read Our Docs - Environment base
 #
-#  -- derived from Read The Docs base environment
-#  -- see: https://hub.docker.com/r/readthedocs/build/tags
-#  -- see: https://github.com/readthedocs/readthedocs-docker-images
-#
-#  -- derived from Ubuntu official Docker image
+#  -- derived from official Ubuntu Docker image
 #  -- see: https://hub.docker.com/_/ubuntu/tags
 #  -- see: https://github.com/docker-library/official-images
 #
-FROM readthedocs/build:ubuntu-24.04-2024.06.17
+FROM ubuntu:noble-20240904.1
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
-LABEL version="2024.10.0"
+LABEL version="unstable"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
@@ -29,8 +25,51 @@ WORKDIR /
 # System dependencies
 RUN apt-get -y update
 RUN apt-get -y dist-upgrade
+RUN apt-get -y install \
+    software-properties-common \
+    vim
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
+
+# Install requirements
+RUN apt-get -y install \
+    build-essential \
+    bzr \
+    curl \
+    doxygen \
+    g++ \
+    git-core \
+    graphviz-dev \
+    libbz2-dev \
+    libcairo2-dev \
+    libenchant-2-2 \
+    libevent-dev \
+    libffi-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    libgraphviz-dev \
+    libjpeg8-dev \
+    libjpeg-dev \
+    liblcms2-dev \
+    libmysqlclient-dev \
+    libpq-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libtiff5-dev \
+    libwebp-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libxslt-dev \
+    mercurial \
+    pandoc \
+    pkg-config \
+    postgresql-client \
+    subversion \
+    zlib1g-dev
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# ############################################################################
 
 # Localization dependencies
 RUN apt-get -y install \
@@ -52,34 +91,34 @@ RUN locale -a
 
 # Tools for international spelling check
 RUN apt-get -y install \
-      aspell \
-      enchant-2 \
-      hunspell
+    aspell \
+    enchant-2 \
+    hunspell
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
 # Dictionaries for spelling check -- split to reduce image layer size
 RUN apt-get -y install \
-      aspell-en \
-      hunspell-en-us \
-      hunspell-en-med
+    aspell-en \
+    hunspell-en-us \
+    hunspell-en-med
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
 # Dictionaries for spelling check -- split to reduce image layer size
 RUN apt-get -y install \
-      aspell-de \
-      hunspell-de-de \
-      hunspell-de-med \
-      myspell-de-de-1901
+    aspell-de \
+    hunspell-de-de \
+    hunspell-de-med \
+    myspell-de-de-1901
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
 # Dictionaries for spelling check -- split to reduce image layer size
 RUN apt-get -y install \
-      wamerican-huge \
-      wgerman-medical \
-      wngerman
+    wamerican-huge \
+    wgerman-medical \
+    wngerman
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
@@ -106,13 +145,13 @@ RUN apt-get clean
 # swig: is required for different purposes
 # https://github.com/readthedocs/readthedocs-docker-images/issues/15
 RUN apt-get -y install \
-      graphviz \
-      imagemagick \
-      librsvg2-bin \
-      pdf2svg \
-      plantuml \
-      poppler-utils \
-      swig
+    graphviz \
+    imagemagick \
+    librsvg2-bin \
+    pdf2svg \
+    plantuml \
+    poppler-utils \
+    swig
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
@@ -120,17 +159,44 @@ RUN apt-get clean
 
 # LaTeX -- split to reduce image layer size
 RUN apt-get -y install \
-    texlive-fonts-extra \
+    texlive-fonts-extra
+RUN apt-get -y install \
     texlive-fonts-recommended
 RUN apt-get -y install \
-    texlive-lang-english \
+    texlive-lang-english
+RUN apt-get -y install \
     texlive-lang-european
 RUN apt-get -y install \
-    texlive-pictures \
-    texlive-science \
+    texlive-lang-japanese
+RUN apt-get -y install \
+    texlive-pictures
+RUN apt-get -y install \
+    texlive-science
+RUN apt-get -y install \
     texlive-xetex
+RUN apt-get -y install \
+    texlive-full
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
+
+# lmodern: extra fonts
+# https://github.com/rtfd/readthedocs.org/issues/5494
+#
+# xindy: is useful to generate non-ascii indexes
+# https://github.com/rtfd/readthedocs.org/issues/4454
+#
+# fonts-noto-cjk-extra
+# fonts-hanazono: chinese fonts
+# https://github.com/readthedocs/readthedocs.org/issues/6319
+RUN apt-get -y install \
+    fonts-symbola \
+    lmodern \
+    latex-cjk-chinese-arphic-bkai00mp \
+    latex-cjk-chinese-arphic-gbsn00lp \
+    latex-cjk-chinese-arphic-gkai00mp \
+    fonts-noto-cjk-extra \
+    fonts-hanazono \
+    xindy
 
 # latexmk: is needed to generate LaTeX documents
 # https://github.com/readthedocs/readthedocs.org/issues/4454
@@ -141,10 +207,53 @@ RUN apt-get clean
 
 # ############################################################################
 
-# asdf Python 3.6.15 extra requirements
+# asdf Python extra requirements
+# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # https://github.com/pyenv/pyenv/issues/1889#issuecomment-833587851
 RUN apt-get install -y \
-    clang
+    clang \
+    liblzma-dev \
+    libncursesw5-dev \
+    libssl-dev \
+    libxmlsec1-dev \
+    llvm \
+    make \
+    tk-dev \
+    wget \
+    xz-utils
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# asdf nodejs extra requirements
+# https://github.com/asdf-vm/asdf-nodejs#linux-debian
+RUN apt-get install -y \
+    dirmngr \
+    gpg
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# asdf Golang extra requirements
+# https://github.com/kennyp/asdf-golang#linux-debian
+RUN apt-get install -y \
+    coreutils
+RUN apt-get -y autoremove --purge
+RUN apt-get clean
+
+# asdf Ruby extra requirements
+# https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
+RUN apt-get install -y \
+    autoconf \
+    patch \
+    rustc \
+    libssl-dev \
+    libyaml-dev \
+    libreadline6-dev \
+    libgmp-dev \
+    libncurses5-dev \
+    libgdbm6 \
+    libgdbm-dev \
+    libdb-dev \
+    uuid-dev
 RUN apt-get -y autoremove --purge
 RUN apt-get clean
 
@@ -186,17 +295,42 @@ RUN apt-get clean
 # asdf version manager in docs user space.
 #
 
+# UID and GID from readthedocs/user
+RUN groupadd --gid 205 docs
+RUN useradd -m --uid 1005 --gid 205 docs
+
 USER docs
 WORKDIR /home/docs
+
+# Install asdf
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --depth 1 --branch v0.14.1
+RUN echo ". /home/docs/.asdf/asdf.sh" >> /home/docs/.bashrc
+RUN echo ". /home/docs/.asdf/completions/asdf.bash" >> /home/docs/.bashrc
+
+# Activate asdf in current session
+ENV PATH /home/docs/.asdf/shims:/home/docs/.asdf/bin:$PATH
+
+# Install asdf plugins
+RUN asdf plugin add pipx   https://github.com/yozachar/asdf-pipx.git
+RUN asdf plugin add python https://github.com/asdf-community/asdf-python.git
+RUN asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+RUN asdf plugin add rust   https://github.com/code-lever/asdf-rust.git
+RUN asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
+RUN asdf plugin add ruby   https://github.com/asdf-vm/asdf-ruby.git
+
+# Create directories for languages installations
+RUN mkdir -p /home/docs/.asdf/installs/pipx && \
+    mkdir -p /home/docs/.asdf/installs/python && \
+    mkdir -p /home/docs/.asdf/installs/nodejs && \
+    mkdir -p /home/docs/.asdf/installs/rust && \
+    mkdir -p /home/docs/.asdf/installs/golang && \
+    mkdir -p /home/docs/.asdf/installs/ruby
 
 # Upgrade asdf version manager
 # https://github.com/asdf-vm/asdf
 RUN asdf update
 RUN asdf plugin update --all
 RUN asdf version
-
-# Install asdf plugins
-RUN asdf plugin add pipx https://github.com/yozachar/asdf-pipx.git
 
 # ############################################################################
 

@@ -18,13 +18,12 @@ README.md).
 
 ## Content
 
-- based on [Docker image definitions used by Read the
-  Docs](https://github.com/readthedocs/readthedocs-docker-images),
-  **ubuntu-24.04-2024.06.17**
-  - Ubuntu 24.04
-  - TeX Live 2023
+- based on [Ubuntu official Docker image](
+  https://github.com/docker-library/official-images),
+  **ubuntu:noble-20240904.1**
+  - Ubuntu 24.04.1 LTS
 - extend with:
-  - Ubuntu 24.04 package upgrade
+  - Ubuntu system package upgrade
   - locales for English unicode (`en_US.UTF-8`)
   - locales for German unicode (`de_DE.UTF-8`)
   - **Python 3.12.3** (`python3`, `pip3`)
