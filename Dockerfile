@@ -250,7 +250,7 @@ RUN apt-get install -y \
     libreadline6-dev \
     libgmp-dev \
     libncurses5-dev \
-    libgdbm6 \
+    libgdbm6t64 \
     libgdbm-dev \
     libdb-dev \
     uuid-dev
