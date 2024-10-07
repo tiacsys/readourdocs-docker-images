@@ -10,6 +10,7 @@
 #
 #  -- TARGETPLATFORM=linux/amd64: TARGETOS=linux, TARGETARCH=amd64, TARGETVARIANT=
 #  -- TARGETPLATFORM=linux/arm/v7: TARGETOS=linux, TARGETARCH=arm, TARGETVARIANT=v7
+#  -- TARGETPLATFORM=linux/arm64: TARGETOS=linux, TARGETARCH=arm64, TARGETVARIANT=
 #
 
 # ############################################################################
@@ -701,6 +702,155 @@ RUN asdf list  rust
 RUN asdf install golang $ROD_GOLANG_VERSION_2024 && \
     asdf global  golang $ROD_GOLANG_VERSION_2024 && \
     asdf reshim  golang
+
+# Adding labels for external usage
+LABEL golang.version_2024=$ROD_GOLANG_VERSION_2024
+
+# Set default Golang version
+RUN asdf local golang $ROD_GOLANG_VERSION_2024
+RUN asdf list  golang
+
+# ############################################################################
+
+#
+# Node.js runtime versions
+#
+
+# Install Node.js versions
+RUN asdf install nodejs $ROD_NODEJS_VERSION_22 && \
+    asdf global  nodejs $ROD_NODEJS_VERSION_22 && \
+    asdf reshim  nodejs
+
+# Adding labels for external usage
+LABEL nodejs.version_22=$ROD_NODEJS_VERSION_22
+
+# Set default Node.js version
+RUN asdf local nodejs $ROD_NODEJS_VERSION_22
+RUN asdf list  nodejs
+
+# ############################################################################
+
+#
+# Ruby runtime versions
+#
+
+# Install Ruby versions
+RUN asdf install ruby $ROD_RUBY_VERSION_33 && \
+    asdf global  ruby $ROD_RUBY_VERSION_33 && \
+    asdf reshim  ruby
+
+# Adding labels for external usage
+LABEL ruby.version_33=$ROD_RUBY_VERSION_33
+
+# Set default Ruby version
+RUN asdf local ruby $ROD_RUBY_VERSION_33
+RUN asdf list  ruby
+
+# ############################################################################
+
+#
+# Python and PyPy runtime versions
+#
+
+# Install Python versions
+RUN asdf install python $ROD_PYTHON_VERSION_27 && \
+    asdf global  python $ROD_PYTHON_VERSION_27 && \
+    asdf reshim  python
+
+RUN asdf install python $ROD_PYTHON_VERSION_310 && \
+    asdf global  python $ROD_PYTHON_VERSION_310 && \
+    asdf reshim  python
+
+RUN asdf install python $ROD_PYTHON_VERSION_312 && \
+    asdf global  python $ROD_PYTHON_VERSION_312 && \
+    asdf reshim  python
+
+# Python2 dependencies are hardcoded because Python2 is
+# deprecated. Updating them to their latest versions may raise
+# incompatibility issues.
+RUN asdf local python $ROD_PYTHON_VERSION_27 && \
+    pip install --upgrade pip==20.3.4 && \
+    pip install --upgrade setuptools==44.1.1 && \
+    pip install --upgrade virtualenv==20.15.1 && \
+    pip install --upgrade wheel==0.37.1 && \
+    pip install --upgrade poetry==1.1.15
+
+# Install Python package versions
+RUN asdf local python $ROD_PYTHON_VERSION_310 && \
+    pip install --upgrade pip==$ROD_PIP_VERSION && \
+    pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+    pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+    pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+    pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+    pip install --upgrade west==$ROD_WEST_VERSION
+
+RUN asdf local python $ROD_PYTHON_VERSION_312 && \
+    pip install --upgrade pip==$ROD_PIP_VERSION && \
+    pip install --upgrade setuptools==$ROD_SETUPTOOLS_VERSION && \
+    pip install --upgrade virtualenv==$ROD_VIRTUALENV_VERSION && \
+    pip install --upgrade wheel==$ROD_WHEEL_VERSION && \
+    pip install --upgrade poetry==$ROD_POETRY_VERSION && \
+    pip install --upgrade west==$ROD_WEST_VERSION
+
+# Adding labels for external usage
+LABEL python.version_27=$ROD_PYTHON_VERSION_27
+LABEL python.version_310=$ROD_PYTHON_VERSION_310
+LABEL python.version_312=$ROD_PYTHON_VERSION_312
+LABEL python.pip=$ROD_PIP_VERSION
+LABEL python.setuptools=$ROD_SETUPTOOLS_VERSION
+LABEL python.virtualenv=$ROD_VIRTUALENV_VERSION
+LABEL python.wheel=$ROD_WHEEL_VERSION
+LABEL python.poetry=$ROD_POETRY_VERSION
+LABEL python.west=$ROD_WEST_VERSION
+
+# Set default Python version
+RUN asdf local python $ROD_PYTHON_VERSION_312
+RUN asdf list  python
+
+# ############################################################################
+#
+# ARMv8 64-bit architecture maintenance
+#
+# ############################################################################
+
+FROM base AS build-arm64
+
+# ############################################################################
+
+#
+# Rust runtime versions
+#
+
+# Install Rust versions
+RUN asdf install rust $ROD_RUST_VERSION_2024 && \
+    asdf global  rust $ROD_RUST_VERSION_2024 && \
+    asdf reshim  rust
+
+# Adding labels for external usage
+LABEL rust.version_2024=$ROD_RUST_VERSION_2024
+
+# Set default Rust version
+RUN asdf local rust $ROD_RUST_VERSION_2024
+RUN asdf list  rust
+
+# ############################################################################
+
+#
+# Golang runtime versions
+#
+
+# HOTFIX: Avoid silent failure, with reason inside of curl
+# <- curl: (55) Send failure: Broken pipe
+# <- OpenSSL SSL_write: Broken pipe, errno 32
+RUN echo "--insecure" > /home/docs/.curlrc
+
+# Install Golang versions
+RUN asdf install golang $ROD_GOLANG_VERSION_2024 && \
+    asdf global  golang $ROD_GOLANG_VERSION_2024 && \
+    asdf reshim  golang
+
+# HOTFIX: Revert silent failure hotfix from above
+RUN rm -f /home/docs/.curlrc
 
 # Adding labels for external usage
 LABEL golang.version_2024=$ROD_GOLANG_VERSION_2024
