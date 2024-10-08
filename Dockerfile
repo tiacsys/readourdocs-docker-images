@@ -24,7 +24,7 @@
 FROM ubuntu:noble-20240904.1 AS base
 
 LABEL mantainer="Stephan Linz <stephan.linz@tiac-systems.de>"
-LABEL version="unstable"
+LABEL version="2024.10.1"
 
 LABEL org.opencontainers.image.vendor="TiaC Systems Network"
 LABEL org.opencontainers.image.authors="Stephan Linz <stephan.linz@tiac-systems.de>"
