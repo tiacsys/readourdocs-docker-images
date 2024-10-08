@@ -40,6 +40,13 @@ jobs:
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
 
+    # Allow to build longer than 6 hours, but this is only possible
+    # with self-hosted runners. 1440 min = 24 h. For details, see:
+    # https://github.com/orgs/community/discussions/26679
+    # https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+    # https://docs.github.com/en/actions/administering-github-actions/usage-limits-billing-and-administration
+    timeout-minutes: 1440
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
