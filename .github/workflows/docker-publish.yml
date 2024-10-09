@@ -40,6 +40,13 @@ jobs:
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
 
+    # Allow to build longer than 6 hours, but this is only possible
+    # with self-hosted runners. 1440 min = 24 h. For details, see:
+    # https://github.com/orgs/community/discussions/26679
+    # https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions
+    # https://docs.github.com/en/actions/administering-github-actions/usage-limits-billing-and-administration
+    timeout-minutes: 1440
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -75,6 +82,12 @@ jobs:
         if: github.event_name != 'pull_request'
         run: cosign version
 
+      # Install QEMU static binaries for multi-arch image build
+      # https://github.com/docker/setup-qemu-action
+      # https://docs.docker.com/build/ci/github-actions/multi-platform
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
       # https://github.com/docker/setup-buildx-action
@@ -107,6 +120,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          # HOTFIX: reduce build time to beeing under standard limit of
+          # 6 hours runtime ("timeout-minutes") on GitHub hosted runners.
+          platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
