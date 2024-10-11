@@ -13,15 +13,52 @@ If you would like to fix a bug or add a feature to our build images, see
 ## Testing Locally
 
 If you'd like to add a feature to any of the images, you'll need to verify the
-image works locally first. After making changes to the ``Dockerfile``, you can
-build your image with:
+image works locally first. To build multi-platform images, you first need to
+make sure that your [Docker environment is set up to support it](
+https://docs.docker.com/build/building/multi-platform/#prerequisites),
+e.g. QEMU and a custom builder with self contained containerd image store.
+To create such a custom builder, use the ``docker buildx create`` command:
 
 ```bash
-docker build -t tiacsys/readourdocs-docker-images:local .
+docker buildx create --name rod-ctn-builder --driver docker-container \
+                     --bootstrap --use
 ```
 
-This will take quite a long time, mostly due to LaTeX dependencies. The
-resulting image will be at least around 12GB.
+After making changes to the ``Dockerfile``, you can build your image with:
+
+```bash
+docker buildx build --tag tiacsys/readourdocs-docker-images:local \
+                    --platform linux/amd64,linux/arm/v7,linux/arm64,linux/riscv64,linux/ppc64le,linux/s390x \
+                    --builder rod-ctn-builder --load .
+```
+
+**ERROR: docker exporter does not currently support exporting manifest lists**
+
+Unfortunately, it is impossible to run that multi-platform image as local
+container. Container images with support for multiple architectures are part of
+the [OCI specification](
+https://github.com/opencontainers/image-spec/blob/main/image-index.md) and
+Docker supports creating these as well. The image index (more commonly referred
+to as the image manifest) contains some metadata about the image itself and an
+array of actual manifests which specify the platform and the image layer
+references. Docker supports creating these but only through the experimental
+new builder, *buildx*.
+
+Buildx has some nice new features like support for better caching between
+images as well as cleaner output during builds. However, it runs completely
+independently of your standard local docker registry. If you run ``docker ps``,
+you’ll see a buildx builder running as a container on your local machine. This
+is a virtual builder that we created using ``docker buildx create``.
+
+**Simple build for native platform**
+
+```bash
+docker build --tag tiacsys/readourdocs-docker-images:local .
+```
+
+This will take quite a long time, mostly due to LaTeX dependencies and required
+rebuilds of components from source code for different platforms. The resulting
+images will be at least around 17GB.
 
 Once your image is built, you can test your image locally by running a shell in
 a container using your new image:
@@ -55,6 +92,8 @@ completely deleted at any time with:
 
 ```bash
 docker image rm tiacsys/readourdocs-docker-images:local
+docker buildx rm rod-ctn-builder
+docker buildx prune --all --force
 docker builder prune --all --force
 ```
 
